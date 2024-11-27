@@ -1,0 +1,12 @@
+[submodule "modules/minilibx-linux"]
+	path = modules/minilibx-linux
+	url = https://github.com/42Paris/minilibx-linux
+[submodule "modules/ft_printf"]
+	path = modules/ft_printf
+	url = git@github.com:LolelsayFR/ft_printf.git
+[submodule "modules/libft"]
+	path = modules/libft
+	url = git@github.com:LolelsayFR/libft.git
+[submodule "modules/get_next_line"]
+	path = modules/get_next_line
+	url = git@github.com:LolelsayFR/get_next_line.git
