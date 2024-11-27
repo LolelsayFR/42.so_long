@@ -1,5 +1,5 @@
-[submodule "minilibx-linux"]
-	path = minilibx-linux
+[submodule "lib/minilibx-linux"]
+	path = lib/minilibx-linux
 	url = https://github.com/42Paris/minilibx-linux
 [submodule "lib/get_next_line"]
 	path = lib/get_next_line
