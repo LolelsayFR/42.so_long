@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
+#    Updated: 2024/11/27 23:32:35 by emaillet         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME			=	so_long
 
 
@@ -15,7 +27,7 @@ FTPRINTF_PATH	=	modules/ft_printf
 FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 
 MINILIBX_PATH	=	modules/minilibx-linux
-MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
+MINILIBX		=	$(MINILIBX_PATH)/libmlx_Linux.a
 
 CFLAGS			=	-Wall -Werror -Wextra -lXext -lX11
 
@@ -50,8 +62,8 @@ $(MINILIBX):
 clean:
 	@echo "\e[48;2;155;100;0;1m Clean SoLong dependencies \e[0m\n"
 	@$(RM) ${FTPRINTF} ${LIBFT}
-	@$(MAKE) --no-print-directory -s $(MINILIBX_PATH)
-	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
+	@$(MAKE) --no-print-directory clean -s -C $(MINILIBX_PATH)
+	@echo "\n\e[48;2;0;0;155;1m Done \e[0m\n"
 
 fclean:	clean
 	@echo "\e[48;2;155;100;0;1m Uninstall SoLong \e[0m\n"
@@ -59,10 +71,5 @@ fclean:	clean
 	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
 
 re:	fclean all
-
-run : all
-	./$(NAME)
-
-rerun:	re run
 
 .PHONY: all clean fclean re lib
