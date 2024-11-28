@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/28 00:48:43 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/11/28 07:04:23 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_mlx_data
 }	t_mlx_data;
 
 int		handle_input(int keysym, t_mlx_data *data);
-void	mlx_close(t_mlx_data *data);
+int		mlx_close(t_mlx_data *data);
+void	mlx_putimg(t_mlx_data *data, char *path);
+int		color_map(t_mlx_data *data, int w, int h);
 
 #endif
