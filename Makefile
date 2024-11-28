@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/11/27 23:32:35 by emaillet         ###   ########.fr        #
+#    Updated: 2024/11/27 23:59:07 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,20 +16,20 @@ NAME			=	so_long
 SRC				=	script/main.c\
 
 
-GNL_PATH		=	modules/get_next_line
+GNL_PATH		=	./modules/get_next_line
 GNL				=	$(GNL_PATH)/get_next_line_bonus.c\
 					$(GNL_PATH)/get_next_line_utils_bonus.c
 
-LIBFT_PATH		=	modules/libft
+LIBFT_PATH		=	./modules/libft
 LIBFT			=	$(LIBFT_PATH)/libft.a
 
-FTPRINTF_PATH	=	modules/ft_printf
+FTPRINTF_PATH	=	./modules/ft_printf
 FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 
-MINILIBX_PATH	=	modules/minilibx-linux
-MINILIBX		=	$(MINILIBX_PATH)/libmlx_Linux.a
+MINILIBX_PATH	=	./modules/minilibx-linux
+MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-CFLAGS			=	-Wall -Werror -Wextra -lXext -lX11
+CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra
 
 all:	$(NAME)
 
@@ -37,7 +37,7 @@ lib: $(LIBFT) $(FTPRINTF) $(MINILIBX)
 
 $(NAME): ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
 	@echo "\e[48;2;0;155;0;1m Compile Solong \e[0m\n"
-	@cc ${CFLAGS} ${SRC} ${GNL} ${LIBFT} ${FTPRINTF} ${MINILIBX} -o $(NAME)
+	gcc ${SRC} ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
 	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
 
 $(LIBFT):
