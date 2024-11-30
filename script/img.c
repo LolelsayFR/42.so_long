@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/29 23:22:41 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/11/30 04:53:37 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ void	mlx_put_background(t_mlx_data *data)
 	int		w;
 	int		h;
 
-	bg = mlx_xpm_file_to_image(data->mlx_ptr,
-			BACKGROUND, &w, &h);
+	bg = mlx_xpm_file_to_image(data->mlx_ptr, BACKGROUND, &w, &h);
 	if (!bg)
 		ft_printf("Cant access background data");
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, bg, 0, 0);
@@ -32,8 +31,7 @@ void	mlx_put_player(t_mlx_data *data, int x, int y)
 	int		w;
 	int		h;
 
-	bg = mlx_xpm_file_to_image(data->mlx_ptr,
-			PLAYER, &w, &h);
+	bg = mlx_xpm_file_to_image(data->mlx_ptr, PLAYER, &w, &h);
 	if (!bg)
 		ft_printf("Cant access background data");
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, bg, x, y);
