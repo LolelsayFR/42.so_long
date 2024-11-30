@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/28 07:16:22 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/11/30 01:43:08 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,43 +16,27 @@ int	main(void)
 {
 	t_mlx_data	data;
 
+	data.player = malloc(sizeof(t_player));
+	data.control = malloc(sizeof(t_control));
 	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
+	if (!data.mlx_ptr || !data.control || !data.player)
 		return (RETURN_ERROR);
-	data.win_ptr = mlx_new_window(data.mlx_ptr,
-			WIDTH, HEIGHT, "So Long");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "So Long");
 	if (!data.win_ptr)
 	{
 		mlx_destroy_display(data.mlx_ptr);
 		free(data.mlx_ptr);
 		return (RETURN_ERROR);
 	}
-	color_map(&data, WIDTH, HEIGHT);
-	mlx_putimg(&data, "./sprite/saturn.xpm");
+	player_init(&data);
+	mlx_render(&data);
 	mlx_hook(data.win_ptr, 17, 0, mlx_close, &data);
-	mlx_key_hook(data.win_ptr, handle_input, &data);
+	mlx_hook(data.win_ptr, 2, KeyPressMask, handle_input, &data);
+	mlx_key_hook(data.win_ptr, handle_input_keyrelease, &data);
+	mlx_loop_hook(data.mlx_ptr, mlx_render, &data);
 	mlx_loop(data.mlx_ptr);
 	mlx_close(&data);
 	return (0);
-}
-
-void	mlx_putimg(t_mlx_data *data, char *path)
-{
-	void	*image;
-	int		img_width;
-	int		img_height;
-
-	image = mlx_xpm_file_to_image(data->mlx_ptr, path, &img_width, &img_height);
-	if (!image)
-	{
-		ft_printf("Error: Unable to load image from path: %s\n", path);
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-		return ;
-	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, image, 0, 0);
-	mlx_destroy_image(data->mlx_ptr, image);
 }
 
 int	mlx_close(t_mlx_data *data)
@@ -62,36 +46,57 @@ int	mlx_close(t_mlx_data *data)
 	if (data->mlx_ptr)
 		mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
+	free(data->player);
+	free(data->control);
 	exit(0);
 }
 
 int	handle_input(int keysym, t_mlx_data *data)
 {
 	if (keysym == XK_Escape)
-	{
-		printf("The %d key (ESC) has been pressed\n\n", keysym);
 		mlx_close(data);
-	}
-	printf("The %d key has been pressed\n\n", keysym);
+	else if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
+		data->control->right = 1;
+	else if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
+		data->control->left = 1;
+	else if (keysym == XK_w || keysym == XK_W || keysym == XK_Up)
+		data->control->up = 1;
+	else if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
+		data->control->down = 1;
+	else if (keysym == XK_Shift_L || keysym == XK_Shift_R)
+		data->control->shift = 1;
+	else if (keysym == XK_space || keysym == XK_Control_R)
+		data->control->use = 1;
+	ft_printf("The %d key has been pressed\n\n", keysym);
 	return (0);
 }
 
-int	color_map(t_mlx_data *data, int w, int h)
+int	handle_input_keyrelease(int keysym, t_mlx_data *data)
 {
-	int	x;
-	int	y;
-	int	color;
+	if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
+		data->control->right = 0;
+	else if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
+		data->control->left = 0;
+	else if (keysym == XK_w || keysym == XK_W || keysym == XK_Up)
+		data->control->up = 0;
+	else if (keysym == XK_s || keysym == XK_S || keysym == XK_Down)
+		data->control->down = 0;
+	else if (keysym == XK_Shift_L || keysym == XK_Shift_R)
+		data->control->shift = 0;
+	else if (keysym == XK_space || keysym == XK_Control_R)
+		data->control->use = 0;
+	ft_printf("The %d key has been released\n\n", keysym);
+	return (0);
+}
 
-	x = w;
-	while (x--)
+int	mlx_render(t_mlx_data *data)
+{
+	player_move(data);
+	if (data->updated)
 	{
-		y = h;
-		while (y--)
-		{
-			color = (x * 255) / w + ((((w - x) * 255) / w) << 16)
-				+ (((y * 255) / h) << 8);
-			mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, color);
-		}
+		mlx_put_background(data);
+		mlx_put_player(data, data->player->pos_x, data->player->pos_y);
 	}
-	return (1);
+	data->updated = 0;
+	return (0);
 }

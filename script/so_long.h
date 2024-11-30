@@ -6,13 +6,14 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/28 07:04:23 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/11/30 01:54:27 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include <math.h>
 # include <X11/keysym.h>
 # include "../modules/libft/libft.h"
 # include "../modules/minilibx-linux/mlx.h"
@@ -28,16 +29,62 @@
 # define RETURN_ERROR	-1
 # define WIDTH			960
 # define HEIGHT			540
+# define BACKGROUND		"./sprites/saturn.xpm"
+# define PLAYER			"./sprites/open.xpm"
+# define DEFAULT_SPEED	2
+# define DEFAULT_SPRINT	3
+
+/* ************************************************************************** */
+/*  So_long custom struct                                                     */
+/* ************************************************************************** */
+typedef struct s_control
+{
+	int	up;
+	int	down;
+	int	left;
+	int	right;
+	int	shift;
+	int	use;
+}	t_control;
+
+typedef struct s_player
+{
+	int	pos_x;
+	int	pos_y;
+	int	speed;
+	int	sprint;
+	int	hp;
+	int	item[5];
+}	t_player;
 
 typedef struct s_mlx_data
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_player	*player;
+	t_control	*control;
+	int			updated;
 }	t_mlx_data;
 
+/* ************************************************************************** */
+/*  Main functions                                                            */
+/* ************************************************************************** */
 int		handle_input(int keysym, t_mlx_data *data);
+int		handle_input_keyrelease(int keysym, t_mlx_data *data);
 int		mlx_close(t_mlx_data *data);
-void	mlx_putimg(t_mlx_data *data, char *path);
 int		color_map(t_mlx_data *data, int w, int h);
+int		mlx_render(t_mlx_data *data);
+
+/* ************************************************************************** */
+/*  Img functions                                                             */
+/* ************************************************************************** */
+void	mlx_put_background(t_mlx_data *data);
+void	mlx_put_player(t_mlx_data *data, int x, int y);
+
+/* ************************************************************************** */
+/*  Player functions                                                          */
+/* ************************************************************************** */
+void	player_init(t_mlx_data *data);
+void	player_move(t_mlx_data *data);
 
 #endif

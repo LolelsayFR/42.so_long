@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/11/28 05:47:51 by emaillet         ###   ########.fr        #
+#    Updated: 2024/11/30 01:21:40 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,9 @@ NAME			=	so_long
 
 
 SRC				=	script/main.c\
+					script/player.c\
+					script/img.c\
+					script/fun.c
 
 
 GNL_PATH		=	./modules/get_next_line
@@ -29,7 +32,7 @@ FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 MINILIBX_PATH	=	./modules/minilibx-linux
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra
+CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -O0
 
 all:	$(NAME)
 
@@ -37,7 +40,7 @@ lib: $(LIBFT) $(FTPRINTF) $(MINILIBX)
 
 $(NAME): ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
 	@echo "\e[48;2;0;155;0;1m Compile Solong \e[0m\n"
-	gcc ${SRC} ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
+	cc ${SRC} ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
 	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
 
 $(LIBFT):
