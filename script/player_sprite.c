@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   player_sprite.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/02 00:08:58 by emaillet         ###   ########.fr       */
+/*   Created: 2024/12/02 01:07:47 by emaillet          #+#    #+#             */
+/*   Updated: 2024/12/02 01:31:48 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <unistd.h>
 
-int	mlx_clock(t_mlx_data *data)
+void	player_set_sprite(t_mlx_data *data, char *path)
 {
-	usleep(1000000 / 60);
-	mlx_actions(data);
-	mlx_render(data);
-	return (1);
-}
+	int			w;
+	int			h;
 
-void	mlx_render(t_mlx_data *data)
-{
-	mlx_put_room_bg(data);
-	mlx_put_player(data, data->player->pos_x, data->player->pos_y);
-}
-
-void	mlx_actions(t_mlx_data *data)
-{
-	player_move(data);
+	mlx_destroy_image(data->mlx_ptr, data->img->player);
+	data->img->player = mlx_xpm_file_to_image(data->mlx_ptr, path, &w, &h);
 }

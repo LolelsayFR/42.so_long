@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/30 04:48:33 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/02 01:04:00 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ int	main(void)
 		free(data.mlx_ptr);
 		return (RETURN_ERROR);
 	}
+	mlx_put_background(&data);
+	color_map(&data, WIDTH, HEIGHT);
+	mlx_put_hud_bg(&data);
 	mlx_render(&data);
 	mlx_hook(data.win_ptr, 17, 0, mlx_close, &data);
 	mlx_hook(data.win_ptr, 2, KeyPressMask, handle_input, &data);
 	mlx_key_hook(data.win_ptr, handle_input_keyrelease, &data);
-	mlx_loop_hook(data.mlx_ptr, mlx_render, &data);
+	mlx_loop_hook(data.mlx_ptr, mlx_clock, &data);
 	mlx_loop(data.mlx_ptr);
 	mlx_close(&data);
 	return (0);
@@ -41,6 +44,7 @@ void	data_init(t_mlx_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	data->control = malloc(sizeof(t_control));
+	data->img = malloc(sizeof(t_sprites));
 	data->control->up = 0;
 	data->control->down = 0;
 	data->control->right = 0;
@@ -48,17 +52,10 @@ void	data_init(t_mlx_data *data)
 	data->control->primary = 0;
 	data->control->secondary = 0;
 	data->control->sprint = 0;
-	data->updated = 1;
 }
 
 int	mlx_close(t_mlx_data *data)
 {
-	if (data->win_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-		mlx_destroy_display(data->mlx_ptr);
-	if (data->player->inventory)
-		free(data->mlx_ptr);
 	if (data->player)
 	{
 		free(data->player->inventory);
@@ -66,6 +63,21 @@ int	mlx_close(t_mlx_data *data)
 	}
 	if (data->control)
 		free(data->control);
+	if (data->img)
+	{
+		mlx_destroy_image(data->mlx_ptr, data->img->room_bg);
+		mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
+		mlx_destroy_image(data->mlx_ptr, data->img->player);
+		mlx_destroy_image(data->mlx_ptr, data->img->bg);
+		free(data->img);
+	}
+	if (data->win_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->mlx_ptr)
+	{
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
 	exit(0);
 }
 
