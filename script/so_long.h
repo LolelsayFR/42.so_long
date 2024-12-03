@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/02 01:24:25 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:37:50 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@
 # define HEIGHT			540
 
 //Set the view size and pos
-# define VIEW_X			20
-# define VIEW_Y			20
-# define VIEW_W			500
-# define VIEW_H			500
+# define VIEW_X			50
+# define VIEW_Y			50
+# define VIEW_W			440
+# define VIEW_H			440
 
 //Set the hud size and pos
 # define HUD_X			540
@@ -50,12 +50,12 @@
 
 //Set all sprites path
 # define BG				"./sprites/saturn.xpm"
-# define PLAYER			"./sprites/open.xpm"
-# define PLAYER2		"./sprites/nepo.xpm"
+# define PLAYER			"./sprites/player/down1.xpm"
 # define ROOM_BG		"./sprites/room_bg.xpm"
 # define HUD_BG			"./sprites/hud_bg.xpm"
 
 //Set player value and hitbox
+# define PLAYER_FRAMES	4
 # define DEFAULT_SPEED	2
 # define DEFAULT_SPRINT	3
 # define DEFAULT_HP		100
@@ -63,9 +63,20 @@
 # define HITBOX_W		64
 # define HITBOX_H		64
 
+//Dev settings
+# define DEBUG			0
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
 /* ************************************************************************** */
+
+typedef struct s_sprites_player
+{
+	t_img	*up[5];
+	t_img	*down[5];
+	t_img	*left[5];
+	t_img	*right[5];
+}	t_sprites_player;
+
 typedef struct s_control
 {
 	int	up;
@@ -103,10 +114,11 @@ typedef struct s_player
 
 typedef struct s_sprites
 {
-	t_img	*player;
-	t_img	*bg;
-	t_img	*hud_bg;
-	t_img	*room_bg;
+	t_img				*player;
+	t_img				*bg;
+	t_img				*hud_bg;
+	t_img				*room_bg;
+	t_sprites_player	*player_anim;
 }	t_sprites;
 
 typedef struct s_mlx_data
@@ -125,6 +137,13 @@ int		handle_input(int keysym, t_mlx_data *data);
 int		handle_input_keyrelease(int keysym, t_mlx_data *data);
 int		mlx_close(t_mlx_data *data);
 void	data_init(t_mlx_data *data);
+
+/* ************************************************************************** */
+/*  Sprites Init functions                                                    */
+/* ************************************************************************** */
+int		sprites_init_player1(t_mlx_data *data);
+int		sprites_init_player2(t_mlx_data *data);
+void	sprite_clear_player(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Clock functions                                                           */
@@ -148,8 +167,7 @@ void	mlx_put_hud_bg(t_mlx_data *data);
 void	player_init(t_mlx_data *data);
 void	player_move(t_mlx_data *data);
 void	player_move2(t_mlx_data *data);
-//Player animation
-void	player_set_sprite(t_mlx_data *data, char *path);
+void	player_set_amim(t_mlx_data *data, t_img **set);
 
 /* ************************************************************************** */
 /*  Other functions (fun)                                                     */

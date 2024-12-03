@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/02 01:04:00 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:36:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	main(void)
 		return (RETURN_ERROR);
 	}
 	mlx_put_background(&data);
-	color_map(&data, WIDTH, HEIGHT);
 	mlx_put_hud_bg(&data);
 	mlx_render(&data);
 	mlx_hook(data.win_ptr, 17, 0, mlx_close, &data);
@@ -52,6 +51,7 @@ void	data_init(t_mlx_data *data)
 	data->control->primary = 0;
 	data->control->secondary = 0;
 	data->control->sprint = 0;
+	sprites_init_player1(data);
 }
 
 int	mlx_close(t_mlx_data *data)
@@ -65,9 +65,9 @@ int	mlx_close(t_mlx_data *data)
 		free(data->control);
 	if (data->img)
 	{
+		sprite_clear_player(data);
 		mlx_destroy_image(data->mlx_ptr, data->img->room_bg);
 		mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
-		mlx_destroy_image(data->mlx_ptr, data->img->player);
 		mlx_destroy_image(data->mlx_ptr, data->img->bg);
 		free(data->img);
 	}
@@ -99,7 +99,8 @@ int	handle_input(int keysym, t_mlx_data *data)
 		data->control->primary = 1;
 	else if (keysym == XK_Alt_L || keysym == XK_Alt_R)
 		data->control->secondary = 1;
-	ft_printf("The %d key has been pressed\n\n", keysym);
+	if (DEBUG == 1)
+		ft_printf(GRN"The %d key has been pressed\n"RES, keysym);
 	return (0);
 }
 
@@ -119,6 +120,7 @@ int	handle_input_keyrelease(int keysym, t_mlx_data *data)
 		data->control->primary = 0;
 	else if (keysym == XK_Alt_L || keysym == XK_Alt_R)
 		data->control->secondary = 0;
-	ft_printf("The %d key has been released\n\n", keysym);
+	if (DEBUG == 1)
+		ft_printf(RED"The %d key has been released\n"RES, keysym);
 	return (0);
 }

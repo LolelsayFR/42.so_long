@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/02 01:25:17 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:27:57 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,39 @@ void	player_move(t_mlx_data *data)
 
 void	player_move2(t_mlx_data *data)
 {
-	if (data->control->left && !data->control->right)
-		player_set_sprite(data, PLAYER);
-	if (data->control->right && !data->control->left)
-		player_set_sprite(data, PLAYER2);
+	if (data->control->up && !data->control->down)
+		player_set_amim(data, data->img->player_anim->up);
+	else if (data->control->down && !data->control->up)
+		player_set_amim(data, data->img->player_anim->down);
+	else if (data->control->right && !data->control->left)
+		player_set_amim(data, data->img->player_anim->right);
+	else if (data->control->left && !data->control->right)
+		player_set_amim(data, data->img->player_anim->left);
+	else
+		data->img->player = data->img->player_anim->down[0];
+}
+
+void	player_set_amim(t_mlx_data *data, t_img **set)
+{
+	static int	i = 0;
+	static int	j = 0;
+	int			interval;
+
+	interval = 0;
+	j++;
+	if (data->control->sprint == 1)
+		interval = 1;
+	else
+		interval = 3;
+	if (i < PLAYER_FRAMES)
+	{
+		if (j >= interval)
+		{
+			data->img->player = set[i];
+			i++;
+			j = 0;
+		}
+	}
+	else
+		i = 0;
 }
