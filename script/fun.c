@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:34:49 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/03 23:13:52 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/03 23:24:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,4 @@ int	color_map(t_mlx_data *data, int w, int h)
 		}
 	}
 	return (1);
-}
-
-void	*mlx_new_image_alpha(t_xvar *xvar,int width, int height)
-{
-	t_img	*img;
-
-	img = mlx_new_image(xvar, width, height);
-	if (img)
-		img->pict = XRenderCreatePicture(xvar->display, img->pix,
-										 xvar->pict_format, 0, NULL);
-	return (img);
 }

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/03 22:43:58 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/04 02:08:52 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,33 @@ void	mlx_put_player(t_mlx_data *data, int x, int y)
 		ft_printf(YEL"Need player init\n"RES);
 	}
 	else
+		draw_image(data->img->player, data, x, y);
+}
+
+void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+	char			*pixel_data;
+	int				pixel_pos;
+
+	y = 0;
+	while (y < img->height)
 	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->img->player, x, y);
+		x = 0;
+		pixel_data = img->data + y * img->size_line;
+		while (x < img->width)
+		{
+			pixel_pos = x * (img->bpp / 8);
+			color = *((unsigned int *)(pixel_data + pixel_pos));
+			if (color != 0xFF000000)
+			{
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x
+					+ x_offset, y + y_offset, color);
+			}
+			x++;
+		}
+		y++;
 	}
 }

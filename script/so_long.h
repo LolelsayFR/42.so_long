@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/03 22:37:50 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/04 01:55:04 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
 /* ************************************************************************** */
-
 typedef struct s_sprites_player
 {
 	t_img	*up[5];
@@ -159,6 +158,7 @@ void	mlx_put_background(t_mlx_data *data);
 void	mlx_put_player(t_mlx_data *data, int x, int y);
 void	mlx_put_room_bg(t_mlx_data *data);
 void	mlx_put_hud_bg(t_mlx_data *data);
+void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
 
 /* ************************************************************************** */
 /*  Player functions                                                          */
