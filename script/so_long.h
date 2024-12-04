@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 01:55:04 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/04 05:33:06 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define VIEW_Y			50
 # define VIEW_W			440
 # define VIEW_H			440
+# define TILE_SIZE		40
 
 //Set the hud size and pos
 # define HUD_X			540
@@ -56,14 +57,15 @@
 
 //Set player value and hitbox
 # define PLAYER_FRAMES	4
-# define DEFAULT_SPEED	2
-# define DEFAULT_SPRINT	3
+# define DEFAULT_SPEED	4
+# define DEFAULT_SPRINT	4
 # define DEFAULT_HP		100
 # define DEFAULT_INV_S	1
 # define HITBOX_W		64
 # define HITBOX_H		64
 
 //Dev settings
+# define PTH			"./sprites/"
 # define DEBUG			0
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
@@ -75,6 +77,22 @@ typedef struct s_sprites_player
 	t_img	*left[5];
 	t_img	*right[5];
 }	t_sprites_player;
+
+typedef struct s_sprites_tilemap
+{
+	t_img	*door_up[5];
+	t_img	*door_down[5];
+	t_img	*door_left[5];
+	t_img	*door_right[5];
+	t_img	*end_up[5];
+	t_img	*end_down[5];
+	t_img	*end_left[5];
+	t_img	*end_right[5];
+	t_img	*wall[9];
+	t_img	*chest[3];
+	t_img	*red_chest[3];
+	t_img	*floor[10];
+}	t_sprites_tilemap;
 
 typedef struct s_control
 {
@@ -118,6 +136,7 @@ typedef struct s_sprites
 	t_img				*hud_bg;
 	t_img				*room_bg;
 	t_sprites_player	*player_anim;
+	t_sprites_tilemap	*tilemap;
 }	t_sprites;
 
 typedef struct s_mlx_data
@@ -143,6 +162,16 @@ void	data_init(t_mlx_data *data);
 int		sprites_init_player1(t_mlx_data *data);
 int		sprites_init_player2(t_mlx_data *data);
 void	sprite_clear_player(t_mlx_data *data);
+int		sprites_init_door1(t_mlx_data *data);
+int		sprites_init_door2(t_mlx_data *data);
+int		sprites_init_door3(t_mlx_data *data);
+int		sprites_init_door4(t_mlx_data *data);
+int		sprites_init_wall(t_mlx_data *data);
+int		sprites_init_floors(t_mlx_data *data);
+int		sprites_init_other(t_mlx_data *data);
+void	sprite_clear_tilemap1(t_mlx_data *data);
+void	sprite_clear_tilemap2(t_mlx_data *data);
+void	sprite_clear_tilemap3(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Clock functions                                                           */
@@ -158,6 +187,7 @@ void	mlx_put_background(t_mlx_data *data);
 void	mlx_put_player(t_mlx_data *data, int x, int y);
 void	mlx_put_room_bg(t_mlx_data *data);
 void	mlx_put_hud_bg(t_mlx_data *data);
+void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y);
 void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
 
 /* ************************************************************************** */

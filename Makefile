@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/12/04 01:51:47 by emaillet         ###   ########.fr        #
+#    Updated: 2024/12/04 04:56:26 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ SRC				=	script/main.c\
 					script/img.c\
 					script/map.c\
 					script/init_sprite_player.c\
+					script/init_sprite_tilemap.c\
+					script/init_sprite_tilemap2.c\
+					script/debug.c\
 					script/fun.c
 
 

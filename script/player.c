@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 00:42:03 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/04 03:37:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,11 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 	static int	j = 0;
 	int			interval;
 
-	interval = 0;
 	j++;
 	if (data->control->sprint == 1)
 		interval = 1;
 	else
-		interval = 3;
+		interval = 2;
 	if (i < PLAYER_FRAMES)
 	{
 		if (j >= interval)
@@ -86,5 +85,8 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 		}
 	}
 	else
+	{
 		i = 0;
+		data->img->player = set[i];
+	}
 }

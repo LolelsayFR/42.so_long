@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 00:39:37 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/04 05:30:47 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,24 @@ void	data_init(t_mlx_data *data)
 	data->control->secondary = 0;
 	data->control->sprint = 0;
 	sprites_init_player1(data);
+	sprites_init_door1(data);
 }
 
 int	mlx_close(t_mlx_data *data)
 {
-	if (data->player)
-	{
-		free(data->player->inventory);
-		free(data->player);
-	}
-	if (data->control)
-		free(data->control);
-	if (data->img)
-	{
-		sprite_clear_player(data);
-		mlx_destroy_image(data->mlx_ptr, data->img->room_bg);
-		mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
-		mlx_destroy_image(data->mlx_ptr, data->img->bg);
-		free(data->img);
-	}
-	if (data->win_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-	{
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
-	}
+	free(data->control);
+	sprite_clear_player(data);
+	free(data->player->inventory);
+	free(data->player);
+	sprite_clear_tilemap1(data);
+	free(data->img->tilemap);
+	mlx_destroy_image(data->mlx_ptr, data->img->room_bg);
+	mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
+	mlx_destroy_image(data->mlx_ptr, data->img->bg);
+	free(data->img);
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
 	exit(0);
 }
 
