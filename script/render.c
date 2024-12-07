@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 05:33:57 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 08:34:53 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ int	mlx_clock(t_mlx_data *data)
 
 void	mlx_render(t_mlx_data *data)
 {
-	mlx_put_room_bg(data);
-	mlx_put_tiles(data, data->img->tilemap->door_left[0], 1, 5);
-	mlx_put_tiles(data, data->img->tilemap->door_left[1], 1, 6);
-	mlx_put_tiles(data, data->img->tilemap->door_left[2], 1, 7);
+	map_decor(data, data->map->player_pos[0], data->map->player_pos[1]);
 	mlx_put_player(data, data->player->pos_x, data->player->pos_y);
 }
 

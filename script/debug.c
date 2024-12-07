@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 02:26:09 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 02:40:53 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 08:34:02 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,16 @@ void	mlx_put_room_bg(t_mlx_data *data)
 		ft_printf("Cant access player data");
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img->room_bg, VIEW_X, VIEW_Y);
+}
+
+void	ft_mapprint(t_list *liste)
+{
+	t_list	*tmp;
+
+	tmp = liste;
+	while (tmp != NULL)
+	{
+		ft_printf("%s", (char *)tmp->content);
+		tmp = tmp->next;
+	}
 }

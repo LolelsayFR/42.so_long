@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/12/04 04:56:26 by emaillet         ###   ########.fr        #
+#    Updated: 2024/12/07 12:47:55 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,17 @@ SRC				=	script/main.c\
 					script/player.c\
 					script/render.c\
 					script/img.c\
-					script/map.c\
+					script/init_map.c\
+					script/tilepos.c\
+					script/tilepos2.c\
+					script/tilepos3.c\
+					script/free_global.c\
+					script/init_global.c\
 					script/init_sprite_player.c\
 					script/init_sprite_tilemap.c\
 					script/init_sprite_tilemap2.c\
 					script/debug.c\
 					script/fun.c
-
 
 GNL_PATH		=	./modules/get_next_line
 GNL				=	$(GNL_PATH)/get_next_line_bonus.c\
@@ -38,7 +42,7 @@ FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 MINILIBX_PATH	=	./modules/minilibx-linux
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -O0
+CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -O3
 
 all:	$(NAME)
 
@@ -51,7 +55,7 @@ $(NAME): ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
 
 $(LIBFT):
 	@echo "\e[48;2;0;155;0;1m Make LIBFT \e[0m\n"
-	@$(MAKE) --no-print-directory  -C $(LIBFT_PATH)
+	@$(MAKE) --no-print-directory bonus -C $(LIBFT_PATH)
 	@$(MAKE) --no-print-directory  clean  -C $(LIBFT_PATH)
 	@echo "\e[48;2;0;0;155;1m Done for LIBFT \e[0m\n"
 

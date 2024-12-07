@@ -6,23 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 03:37:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:33:44 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	player_init(t_mlx_data *data)
-{
-	data->player = malloc(sizeof(t_player));
-	data->player->inventory = malloc(sizeof(t_inventory));
-	data->player->inventory->size = DEFAULT_INV_S;
-	data->player->speed = DEFAULT_SPEED;
-	data->player->sprint = DEFAULT_SPRINT;
-	data->player->hp = DEFAULT_HP;
-	data->player->pos_x = 100;
-	data->player->pos_y = 100;
-}
 
 void	player_move(t_mlx_data *data)
 {
@@ -39,14 +27,6 @@ void	player_move(t_mlx_data *data)
 		data->player->pos_x -= speed;
 	if (data->control->right && !data->control->left)
 		data->player->pos_x += speed;
-	if (data->player->pos_x > VIEW_W + VIEW_X - HITBOX_W)
-		data->player->pos_x = VIEW_W + VIEW_X - HITBOX_W;
-	else if (data->player->pos_x < VIEW_X)
-		data->player->pos_x = VIEW_X;
-	if (data->player->pos_y > VIEW_H + VIEW_Y - HITBOX_H)
-		data->player->pos_y = VIEW_H + VIEW_Y - HITBOX_H;
-	else if (data->player->pos_y < VIEW_Y)
-		data->player->pos_y = VIEW_Y;
 	player_move2(data);
 }
 
@@ -62,6 +42,7 @@ void	player_move2(t_mlx_data *data)
 		player_set_amim(data, data->img->player_anim->left);
 	else
 		data->img->player = data->img->player_anim->down[0];
+	player_mapmove(data);
 }
 
 void	player_set_amim(t_mlx_data *data, t_img **set)
@@ -88,5 +69,54 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 	{
 		i = 0;
 		data->img->player = set[i];
+	}
+}
+
+void	player_mapmove(t_mlx_data *data)
+{
+	if (data->player->pos_y > VIEW_H + VIEW_Y - HITBOX_H)
+	{
+		if (data->map->player_pos[1] < data->map->size_y / 4)
+		{
+			data->player->pos_y = VIEW_Y;
+			data->map->player_pos[1]++;
+		}
+		else
+			data->player->pos_y = VIEW_H + VIEW_Y - HITBOX_H;
+	}
+	else if (data->player->pos_y < VIEW_Y)
+	{
+		if (data->map->player_pos[1] > 1)
+		{
+			data->player->pos_y = VIEW_H + VIEW_Y - HITBOX_H;
+			data->map->player_pos[1]--;
+		}
+		else
+			data->player->pos_y = VIEW_Y;
+	}
+	player_mapmove2(data);
+}
+
+void	player_mapmove2(t_mlx_data *data)
+{
+	if (data->player->pos_x > VIEW_W + VIEW_X - HITBOX_W)
+	{
+		if (data->map->player_pos[0] < data->map->size_x / 4)
+		{
+			data->player->pos_x = VIEW_X;
+			data->map->player_pos[0]++;
+		}
+		else
+			data->player->pos_x = VIEW_W + VIEW_X - HITBOX_W;
+	}
+	else if (data->player->pos_x < VIEW_X)
+	{
+		if (data->map->player_pos[0] > 1)
+		{
+			data->player->pos_x = VIEW_W + VIEW_X - HITBOX_W;
+			data->map->player_pos[0]--;
+		}
+		else
+			data->player->pos_x = VIEW_X;
 	}
 }

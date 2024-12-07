@@ -6,25 +6,25 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 05:30:47 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 02:56:24 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	main(void)
+int	main(int ac, char **av)
 {
 	t_mlx_data	data;
 
-	data_init(&data);
-	player_init(&data);
+	if (ac != 2)
+		return (RETURN_ERROR, ft_printf(RED"[ERROR] Please add map.\n"RES));
+	data_init(&data, av[1]);
 	if (!data.mlx_ptr || !data.control || !data.player)
 		return (RETURN_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "So Long");
 	if (!data.win_ptr)
 	{
-		mlx_destroy_display(data.mlx_ptr);
-		free(data.mlx_ptr);
+		mlx_close(&data);
 		return (RETURN_ERROR);
 	}
 	mlx_put_background(&data);
@@ -37,40 +37,6 @@ int	main(void)
 	mlx_loop(data.mlx_ptr);
 	mlx_close(&data);
 	return (0);
-}
-
-void	data_init(t_mlx_data *data)
-{
-	data->mlx_ptr = mlx_init();
-	data->control = malloc(sizeof(t_control));
-	data->img = malloc(sizeof(t_sprites));
-	data->control->up = 0;
-	data->control->down = 0;
-	data->control->right = 0;
-	data->control->left = 0;
-	data->control->primary = 0;
-	data->control->secondary = 0;
-	data->control->sprint = 0;
-	sprites_init_player1(data);
-	sprites_init_door1(data);
-}
-
-int	mlx_close(t_mlx_data *data)
-{
-	free(data->control);
-	sprite_clear_player(data);
-	free(data->player->inventory);
-	free(data->player);
-	sprite_clear_tilemap1(data);
-	free(data->img->tilemap);
-	mlx_destroy_image(data->mlx_ptr, data->img->room_bg);
-	mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
-	mlx_destroy_image(data->mlx_ptr, data->img->bg);
-	free(data->img);
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	exit(0);
 }
 
 int	handle_input(int keysym, t_mlx_data *data)

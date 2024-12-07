@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 04:32:17 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 03:52:44 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,8 @@ void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y)
 	int	rx;
 	int	ry;
 
-	if (!((x > 0 && x <= 11) || (y > 0 && y <= 11)))
-	{
-		ft_printf(RED"Tile cant set out of map ! \n"RES);
+	if (!((x > 0 && x <= 11) && (y > 0 && y <= 11)))
 		return ;
-	}
 	if (!tile)
 		ft_printf("Cant access tile data");
 	rx = (x * TILE_SIZE) + VIEW_X - TILE_SIZE;

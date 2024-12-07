@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 03:29:48 by emaillet          #+#    #+#             */
-/*   Updated: 2024/11/30 05:15:02 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 11:54:35 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 //      Map Elements and Their Meanings
 //      
 //          W: Wall - must surround all elements.
-//          ?: Objective item - exactly 4 required.
-//          -: Pistol weapon.
-//          ~: Knife weapon.
-//          +: Bandage.
+//          :: Objective Chest Close
+//          ;: Objective Chest Open Only 4 required.
+//          -: Weapon Chest Open.
+//          ~: Weapon Chest Closed.
 //          .: Empty space.
 //          E: Exit - only one allowed.
 //          @: Player - only one allowed.
-//          !: Enemy - only one allowed.
+//          $: Enemy - only one allowed.
 //      
 //      
 //
@@ -73,24 +73,12 @@
 //      Basic Map Example :
 //      
 //      WWWWWWWWWWEWW
-//      W-..W.?.W...W
+//      W-..W.:.W...W
 //      W.@.D...D...W
-//      W...W..?W...W
+//      W...W..:W...W
 //      WWWWWWDWWWDWW
-//      W?..W...W...W
-//      W...D...D.!.W
-//      W...W?..W...W
+//      W:..W...W...W
+//      W...D...D.$.W
+//      W...W:..W...W
 //      wwwwwwwwwwwww
 //
-//
-//      Basic Map Example :
-//      
-//      WWWWWWWWWWEWW
-//      W-..W.?.W...W
-//      W.@.D...D...W
-//      W...W..?W...W
-//      WWWWWWDWWWDWW
-//      W?..W...W...W
-//      W...D...D.!.W
-//      W...W?..W...W
-//      wwwwwwwwwwwww

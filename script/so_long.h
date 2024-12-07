@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 05:33:06 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:39:58 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 
 //Dev settings
 # define PTH			"./sprites/"
-# define DEBUG			0
+# define DEBUG			1
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
 /* ************************************************************************** */
@@ -92,6 +92,7 @@ typedef struct s_sprites_tilemap
 	t_img	*chest[3];
 	t_img	*red_chest[3];
 	t_img	*floor[10];
+	t_img	*error;
 }	t_sprites_tilemap;
 
 typedef struct s_control
@@ -129,6 +130,21 @@ typedef struct s_player
 	t_inventory	*inventory;
 }	t_player;
 
+typedef struct s_map
+{
+	t_list				*temp_map;
+	char				**map;
+	char				**visited_map;
+	char				*path;
+	int					size_x;
+	int					size_y;
+	int					end_pos[3];
+	int					player_pos[3];
+	int					enemy_pos[3];
+	int					interest;
+
+}	t_map;
+
 typedef struct s_sprites
 {
 	t_img				*player;
@@ -146,6 +162,7 @@ typedef struct s_mlx_data
 	t_player	*player;
 	t_control	*control;
 	t_sprites	*img;
+	t_map		*map;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -154,7 +171,7 @@ typedef struct s_mlx_data
 int		handle_input(int keysym, t_mlx_data *data);
 int		handle_input_keyrelease(int keysym, t_mlx_data *data);
 int		mlx_close(t_mlx_data *data);
-void	data_init(t_mlx_data *data);
+void	data_init(t_mlx_data *data, char *map_path);
 
 /* ************************************************************************** */
 /*  Sprites Init functions                                                    */
@@ -197,10 +214,34 @@ void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
 void	player_init(t_mlx_data *data);
 void	player_move(t_mlx_data *data);
 void	player_move2(t_mlx_data *data);
+void	player_mapmove(t_mlx_data *data);
+void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
+
+/* ************************************************************************** */
+/*  Map functions                                                             */
+/* ************************************************************************** */
+int		map_init(t_mlx_data *data);
+int		map_check(t_mlx_data *data);
+int		map_paste(t_mlx_data *data);
+void	map_decor(t_mlx_data *data, int or_x, int or_y);
+void	map_tilepos(t_mlx_data *data, int x, int y, char c);
+void	map_wallpos(t_mlx_data *data, int x, int y);
+void	map_wallpos2(t_mlx_data *data, int x, int y, int *xy);
+void	map_floorpos(t_mlx_data *data, int x, int y);
+void	map_floorpos2(t_mlx_data *data, int x, int y);
+void	map_chestpos(t_mlx_data *data, int x, int y, char c);
+void	map_chestpos2(t_mlx_data *data, int x, int y, int *xy);
+void	map_doorpos(t_mlx_data *data, int x, int y, char c);
+void	map_doorpos2(t_mlx_data *data, int x, int y, int *xy);
+void	map_doorpos3(t_mlx_data *data, int x, int y, int *xy);
+void	map_errorpos(t_mlx_data *data, int x, int y);
+int		map_free(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Other functions (fun)                                                     */
 /* ************************************************************************** */
 int		color_map(t_mlx_data *data, int w, int h);
+void	ft_mapprint(t_list *liste);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 04:39:54 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 05:32:20 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/07 12:09:23 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	sprites_init_floors(t_mlx_data *data)
 	int	h;
 
 	data->img->tilemap->floor[0] = mlx_xpm_file_to_image(data->mlx_ptr,
-			PTH"floors/down_left.xpm", &w, &h);
+			PTH"floors/floor.xpm", &w, &h);
 	data->img->tilemap->floor[1] = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"floors/down.xpm", &w, &h);
 	data->img->tilemap->floor[2] = mlx_xpm_file_to_image(data->mlx_ptr,
@@ -34,7 +34,7 @@ int	sprites_init_floors(t_mlx_data *data)
 	data->img->tilemap->floor[7] = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"floors/up_right.xpm", &w, &h);
 	data->img->tilemap->floor[8] = mlx_xpm_file_to_image(data->mlx_ptr,
-			PTH"floors/floor.xpm", &w, &h);
+			PTH"floors/down_left.xpm", &w, &h);
 	return (sprites_init_other(data));
 }
 
@@ -93,6 +93,7 @@ void	sprite_clear_tilemap2(t_mlx_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->end_right[1]);
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->end_right[2]);
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->end_right[3]);
+	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->error);
 	sprite_clear_tilemap3(data);
 }
 
