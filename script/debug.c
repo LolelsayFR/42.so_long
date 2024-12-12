@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 02:26:09 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 08:34:02 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 11:43:19 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,22 @@ void	ft_mapprint(t_list *liste)
 		ft_printf("%s", (char *)tmp->content);
 		tmp = tmp->next;
 	}
+}
+
+void	ft_roomprint(t_room *room)
+{
+	int	i;
+
+	i = 0;
+	ft_printf(YEL"[Room Init]\n"RES);
+	while (i < 5)
+	{
+		ft_printf("%s", room->map[i]);
+		i++;
+	}
+}
+
+int	player_coordinate(int coor)
+{
+	return ((coor / TILE_SIZE + 2) / 3 + 1);
 }

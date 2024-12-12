@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 03:29:48 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 11:54:35 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:15:40 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 //          -: Weapon Chest Open.
 //          ~: Weapon Chest Closed.
 //          .: Empty space.
-//          E: Exit - only one allowed.
+//          E: Exit door - only one allowed.
+//          F: Finish Point
 //          @: Player - only one allowed.
 //          $: Enemy - only one allowed.
 //      

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 02:56:24 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:37:25 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int ac, char **av)
 	if (!data.mlx_ptr || !data.control || !data.player)
 		return (RETURN_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "So Long");
-	if (!data.win_ptr)
+	if (!data.win_ptr || data.map->isvalid <= 0)
 	{
 		mlx_close(&data);
 		return (RETURN_ERROR);

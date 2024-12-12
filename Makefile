@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/12/07 12:47:55 by emaillet         ###   ########.fr        #
+#    Updated: 2024/12/12 15:34:25 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,11 @@ NAME			=	so_long
 
 SRC				=	script/main.c\
 					script/player.c\
+					script/player2.c\
 					script/render.c\
 					script/img.c\
 					script/init_map.c\
+					script/init_room.c\
 					script/tilepos.c\
 					script/tilepos2.c\
 					script/tilepos3.c\
@@ -42,7 +44,7 @@ FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 MINILIBX_PATH	=	./modules/minilibx-linux
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -O3
+CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g
 
 all:	$(NAME)
 

@@ -6,11 +6,12 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 11:10:11 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:17:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <string.h>
 
 int	map_init(t_mlx_data *data)
 {
@@ -21,7 +22,7 @@ int	map_init(t_mlx_data *data)
 	fd = open(data->map->path, O_RDONLY);
 	if (fd < 0)
 	{
-		mlx_close(data);
+		ft_printf(RED"[ERROR] Bad map paths.\n"RES);
 		return (RETURN_ERROR);
 	}
 	data->map->temp_map = NULL;
@@ -44,18 +45,45 @@ int	map_paste(t_mlx_data *data)
 
 	i = ft_lstsize(data->map->temp_map);
 	data->map->map = malloc((i + 1) * sizeof(char *));
+	data->map->visited_map = malloc((i + 1) * sizeof(char *));
 	i = 0;
 	temp = data->map->temp_map;
 	while (temp->content != NULL)
 	{
 		data->map->map[i] = ft_strdup(temp->content);
+		data->map->visited_map[i] = ft_strdup(temp->content);
+		ft_memset(data->map->visited_map[i], '*', ft_strlen(temp->content) - 1);
 		i++;
 		temp = temp->next;
 	}
+	data->map->visited_map[i] = NULL;
 	data->map->map[i] = NULL;
-	data->map->size_x = ft_strlen(data->map->map[0]);
-	data->map->size_y = i;
-	ft_printf("x = %i \ny = %i\n", data->map->size_x, data->map->size_y);
+	data->map->size_x = ft_strlen(data->map->map[0]) - 1;
+	data->map->size_y = i - 2;
+	return (map_paste2(data, 0, 0));
+}
+
+int	map_paste2(t_mlx_data *data, int x, int y)
+{
+	y = 0;
+	while (data->map->map[y] != NULL)
+	{
+		x = 0;
+		while (data->map->map[y][x])
+		{
+			if (data->map->map[y][x] == '@')
+			{
+				data->player->pos_x = ((x % 4) * TILE_SIZE * 3) + VIEW_X
+					- (TILE_SIZE / 2) - (HITBOX_W / 2);
+				data->player->pos_y = ((y % 4) * TILE_SIZE * 3) + VIEW_Y
+					- (TILE_SIZE / 2) - (HITBOX_H / 2);
+				data->map->player_pos[0] = x / 4 + 1;
+				data->map->player_pos[1] = y / 4 + 1;
+			}
+			x++;
+		}
+		y++;
+	}
 	if (map_check(data))
 		return (1);
 	else
@@ -72,44 +100,5 @@ int	map_check(t_mlx_data *data)
 		ft_printf("%s", data->map->map[i]);
 		i++;
 	}
-	return (1);
-}
-
-void	map_decor(t_mlx_data *data, int or_x, int or_y)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	or_y--;
-	or_x--;
-	or_y *= 4;
-	or_x *= 4;
-	while (data->map->map[y + or_y] != NULL && y <= 6)
-	{
-		x = 0;
-		while (data->map->map[y + or_y][x + or_x] && x <= 6)
-		{
-			map_tilepos(data, x + 1, y + 1,
-				data->map->map[y + or_y][x + or_x]);
-			x++;
-		}
-		y++;
-	}
-}
-
-int	map_free(t_mlx_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (data->map->map[i] != NULL)
-	{
-		free(data->map->map[i]);
-		i++;
-	}
-	free(data->map->map);
-	ft_lstclear(&data->map->temp_map, free);
-	free(data->map);
 	return (1);
 }

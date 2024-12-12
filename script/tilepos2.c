@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 08:23:53 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 12:39:29 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/09 18:19:54 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	map_wallpos2(t_mlx_data *data, int x, int y, int *xy)
 	else if (y == 1)
 		mlx_put_tiles(data, data->img->tilemap->wall[7], x - xy[0], y - xy[1]);
 	else
-		mlx_put_tiles(data, data->img->tilemap->error, x - xy[0], y - xy[1]);
+		mlx_put_tiles(data, data->img->tilemap->voids, x - xy[0], y - xy[1]);
 }
 
 void	map_floorpos2(t_mlx_data *data, int x, int y)

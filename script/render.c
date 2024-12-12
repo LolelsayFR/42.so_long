@@ -6,28 +6,31 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 08:34:53 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:22:27 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <unistd.h>
 
 int	mlx_clock(t_mlx_data *data)
 {
-	usleep(1000000 / 30);
-	mlx_actions(data);
+	usleep(1000000 / 60);
+	room_init(data);
+	mlx_actions(data, data->player->pos_x, data->player->pos_y);
 	mlx_render(data);
 	return (1);
 }
 
 void	mlx_render(t_mlx_data *data)
 {
-	map_decor(data, data->map->player_pos[0], data->map->player_pos[1]);
 	mlx_put_player(data, data->player->pos_x, data->player->pos_y);
 }
 
-void	mlx_actions(t_mlx_data *data)
+void	mlx_actions(t_mlx_data *data, int x, int y)
 {
+	data->room->p_pos[0] = player_coordinate(x - VIEW_X);
+	data->room->p_pos[1] = player_coordinate(y - VIEW_Y);
+	data->room->p_pos[2] = player_coordinate(x - VIEW_X + HITBOX_W);
+	data->room->p_pos[3] = player_coordinate(y - VIEW_Y + HITBOX_H);
 	player_move(data);
 }

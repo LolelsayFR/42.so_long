@@ -6,12 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 07:49:31 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:11:05 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdlib.h>
 
 void	data_init(t_mlx_data *data, char *map_path)
 {
@@ -21,6 +20,8 @@ void	data_init(t_mlx_data *data, char *map_path)
 	data->control = malloc(sizeof(t_control));
 	data->img = malloc(sizeof(t_sprites));
 	data->map = malloc(sizeof(t_map));
+	data->room = malloc(sizeof(t_room));
+	data->map->isvalid = 0;
 	data->control->up = 0;
 	data->control->down = 0;
 	data->control->right = 0;
@@ -32,7 +33,7 @@ void	data_init(t_mlx_data *data, char *map_path)
 	sprites_init_player1(data);
 	sprites_init_door1(data);
 	player_init(data);
-	map_init(data);
+	data->map->isvalid = map_init(data);
 }
 
 void	player_init(t_mlx_data *data)
@@ -45,6 +46,7 @@ void	player_init(t_mlx_data *data)
 	data->player->hp = DEFAULT_HP;
 	data->player->pos_x = 100;
 	data->player->pos_y = 100;
+	data->player->player_step = 0;
 	data->map->player_pos[0] = 1;
 	data->map->player_pos[1] = 1;
 }

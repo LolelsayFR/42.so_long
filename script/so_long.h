@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 12:39:58 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 17:12:17 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,69 +66,78 @@
 
 //Dev settings
 # define PTH			"./sprites/"
-# define DEBUG			1
+# define DEBUG			0
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
 /* ************************************************************************** */
 typedef struct s_sprites_player
 {
-	t_img	*up[5];
-	t_img	*down[5];
-	t_img	*left[5];
-	t_img	*right[5];
+	t_img				*up[5];
+	t_img				*down[5];
+	t_img				*left[5];
+	t_img				*right[5];
 }	t_sprites_player;
 
 typedef struct s_sprites_tilemap
 {
-	t_img	*door_up[5];
-	t_img	*door_down[5];
-	t_img	*door_left[5];
-	t_img	*door_right[5];
-	t_img	*end_up[5];
-	t_img	*end_down[5];
-	t_img	*end_left[5];
-	t_img	*end_right[5];
-	t_img	*wall[9];
-	t_img	*chest[3];
-	t_img	*red_chest[3];
-	t_img	*floor[10];
-	t_img	*error;
+	t_img				*door_up[5];
+	t_img				*door_down[5];
+	t_img				*door_left[5];
+	t_img				*door_right[5];
+	t_img				*end_up[5];
+	t_img				*end_down[5];
+	t_img				*end_left[5];
+	t_img				*end_right[5];
+	t_img				*wall[9];
+	t_img				*chest[3];
+	t_img				*red_chest[3];
+	t_img				*floor[10];
+	t_img				*error;
+	t_img				*voids;
 }	t_sprites_tilemap;
 
 typedef struct s_control
 {
-	int	up;
-	int	down;
-	int	left;
-	int	right;
-	int	sprint;
-	int	primary;
-	int	secondary;
+	int					up;
+	int					down;
+	int					left;
+	int					right;
+	int					sprint;
+	int					primary;
+	int					secondary;
 }	t_control;
 
 typedef struct s_inventory
 {
-	int	size;
-	int	obj1;
-	int	obj2;
-	int	obj3;
-	int	obj4;
-	int	knife;
-	int	pistol;
-	int	bag;
-	int	heal;
+	int					size;
+	int					obj1;
+	int					obj2;
+	int					obj3;
+	int					obj4;
+	int					knife;
+	int					pistol;
+	int					bag;
+	int					heal;
 }	t_inventory;
 
 typedef struct s_player
 {
-	int			pos_x;
-	int			pos_y;
-	int			speed;
-	int			sprint;
-	int			hp;
-	int			item;
-	t_inventory	*inventory;
+	int					pos_x;
+	int					pos_y;
+	int					speed;
+	int					sprint;
+	int					hp;
+	int					item;
+	int					player_step;
+	t_inventory			*inventory;
 }	t_player;
+
+typedef struct s_room
+{
+	char				map[6][7];
+	int					p_pos[5];
+	int					enemy_pos[3];
+}	t_room;
 
 typedef struct s_map
 {
@@ -142,7 +151,7 @@ typedef struct s_map
 	int					player_pos[3];
 	int					enemy_pos[3];
 	int					interest;
-
+	int					isvalid;
 }	t_map;
 
 typedef struct s_sprites
@@ -157,12 +166,13 @@ typedef struct s_sprites
 
 typedef struct s_mlx_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_player	*player;
-	t_control	*control;
-	t_sprites	*img;
-	t_map		*map;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	t_player			*player;
+	t_control			*control;
+	t_sprites			*img;
+	t_room				*room;
+	t_map				*map;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -195,7 +205,7 @@ void	sprite_clear_tilemap3(t_mlx_data *data);
 /* ************************************************************************** */
 int		mlx_clock(t_mlx_data *data);
 void	mlx_render(t_mlx_data *data);
-void	mlx_actions(t_mlx_data *data);
+void	mlx_actions(t_mlx_data *data, int x, int y);
 
 /* ************************************************************************** */
 /*  Img functions                                                             */
@@ -217,14 +227,20 @@ void	player_move2(t_mlx_data *data);
 void	player_mapmove(t_mlx_data *data);
 void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
+int		player_hitbox(t_mlx_data *data, int x, int y);
+int		player_coordinate(int coor);
 
 /* ************************************************************************** */
 /*  Map functions                                                             */
 /* ************************************************************************** */
+//Map Init, free and Check
 int		map_init(t_mlx_data *data);
 int		map_check(t_mlx_data *data);
 int		map_paste(t_mlx_data *data);
-void	map_decor(t_mlx_data *data, int or_x, int or_y);
+int		map_paste2(t_mlx_data *data, int x, int y);
+int		map_free(t_mlx_data *data);
+//Map decors
+void	map_decor(t_mlx_data *data);
 void	map_tilepos(t_mlx_data *data, int x, int y, char c);
 void	map_wallpos(t_mlx_data *data, int x, int y);
 void	map_wallpos2(t_mlx_data *data, int x, int y, int *xy);
@@ -236,12 +252,16 @@ void	map_doorpos(t_mlx_data *data, int x, int y, char c);
 void	map_doorpos2(t_mlx_data *data, int x, int y, int *xy);
 void	map_doorpos3(t_mlx_data *data, int x, int y, int *xy);
 void	map_errorpos(t_mlx_data *data, int x, int y);
-int		map_free(t_mlx_data *data);
-
+void	map_voidpos(t_mlx_data *data, int x, int y);
+//Room Functions
+int		room_init(t_mlx_data *data);
+t_room	*room_clear(t_room *room);
+t_room	*room_paste(t_room *room, t_map *map, int *ppos);
 /* ************************************************************************** */
 /*  Other functions (fun)                                                     */
 /* ************************************************************************** */
 int		color_map(t_mlx_data *data, int w, int h);
 void	ft_mapprint(t_list *liste);
+void	ft_roomprint(t_room *room);
 
 #endif

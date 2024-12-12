@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 02:17:01 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 12:45:07 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:33:05 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,11 @@ void	map_tilepos(t_mlx_data *data, int x, int y, char c)
 	if (c == '.' || c == '@' || c == '$')
 		map_floorpos(data, x, y);
 	else if (c == 'W')
-	{
-		map_errorpos(data, x, y);
 		map_wallpos(data, x, y);
-	}
 	else if (c == '~' || c == '-' || c == ';' || c == ':')
 		map_chestpos(data, x, y, c);
 	else if (c == 'D' || c == 'E' || c == 'd' || c == 'e')
-	{
-		map_errorpos(data, x, y);
 		map_doorpos(data, x, y, c);
-	}
 	else
 		map_errorpos(data, x, y);
 }

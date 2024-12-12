@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 03:09:53 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 12:08:14 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:47:58 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	sprites_init_door1(t_mlx_data *data)
 	data->img->tilemap = malloc(sizeof(t_sprites_tilemap));
 	data->img->tilemap->door_down[0] = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"doors/base/door_down01.xpm", &w, &h);
+	data->img->tilemap->voids = mlx_xpm_file_to_image(data->mlx_ptr,
+			PTH"void.xpm", &w, &h);
 	data->img->tilemap->error = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"error.xpm", &w, &h);
 	data->img->tilemap->door_down[1] = mlx_xpm_file_to_image(data->mlx_ptr,

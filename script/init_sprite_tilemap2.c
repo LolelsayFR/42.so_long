@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 04:39:54 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/07 12:09:23 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/09 17:52:01 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void	sprite_clear_tilemap2(t_mlx_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->end_right[2]);
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->end_right[3]);
 	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->error);
+	mlx_destroy_image(data->mlx_ptr, data->img->tilemap->voids);
 	sprite_clear_tilemap3(data);
 }
 
