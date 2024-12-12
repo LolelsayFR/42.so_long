@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/10 17:37:25 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:34:10 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_mlx_data	data;
 
 	if (ac != 2)
-		return (RETURN_ERROR, ft_printf(RED"[ERROR] Please add map.\n"RES));
+		return (ft_printf(RED"[ERROR] Please add map.\n"RES), RETURN_ERROR);
 	data_init(&data, av[1]);
 	if (!data.mlx_ptr || !data.control || !data.player)
 		return (RETURN_ERROR);
