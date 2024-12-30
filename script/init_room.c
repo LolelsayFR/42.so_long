@@ -6,13 +6,13 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:56:20 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 16:38:23 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:57:09 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	room_init(t_mlx_data *data)
+int	room_render(t_mlx_data *data)
 {
 	static int	ppos[3];
 	static int	init = 0;

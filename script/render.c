@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 15:22:27 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:57:28 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	mlx_clock(t_mlx_data *data)
 {
 	usleep(1000000 / 60);
-	room_init(data);
+	room_render(data);
 	mlx_actions(data, data->player->pos_x, data->player->pos_y);
 	mlx_render(data);
 	return (1);

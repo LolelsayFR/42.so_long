@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 17:12:17 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:57:37 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void	map_doorpos3(t_mlx_data *data, int x, int y, int *xy);
 void	map_errorpos(t_mlx_data *data, int x, int y);
 void	map_voidpos(t_mlx_data *data, int x, int y);
 //Room Functions
-int		room_init(t_mlx_data *data);
+int		room_render(t_mlx_data *data);
 t_room	*room_clear(t_room *room);
 t_room	*room_paste(t_room *room, t_map *map, int *ppos);
 /* ************************************************************************** */
