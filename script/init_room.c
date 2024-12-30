@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:56:20 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/30 17:57:09 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:49:53 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 int	room_render(t_mlx_data *data)
 {
-	static int	ppos[3];
-	static int	init = 0;
-
 	if (data->map->isvalid == 0)
 		return (0);
-	if (init == 0 || (ppos[0] != data->map->player_pos[0] - 1
-			|| ppos[1] != data->map->player_pos[1] - 1))
+	if (data->room->r_pos[0] != data->map->player_pos[0] - 1
+		|| data->room->r_pos[1] != data->map->player_pos[1] - 1)
 	{
-		init = 1;
-		ppos[0] = data->map->player_pos[0] - 1;
-		ppos[1] = data->map->player_pos[1] - 1;
+		data->room->r_pos[0] = data->map->player_pos[0] - 1;
+		data->room->r_pos[1] = data->map->player_pos[1] - 1;
 		data->room = room_clear(data->room);
-		data->room = room_paste(data->room, data->map, ppos);
+		data->room = room_paste(data->room, data->map, data->room->r_pos);
 		ft_roomprint(data->room);
 	}
 	map_decor(data);
@@ -68,9 +64,11 @@ t_room	*room_paste(t_room *room, t_map *map, int *ppos)
 		while (x < 5)
 		{
 			if (x < map->size_x)
-				room->map[y][x] = map->map[y
-					+ (4 * ppos[1])][x + (4 * ppos[0])];
+				room->map[y][x] = map->map[y + (4 * ppos[1])]
+				[x + (4 * ppos[0])];
 			else
+				room->map[y][x] = '.';
+			if (room->map[y][x] == '@')
 				room->map[y][x] = '.';
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/30 17:57:37 by emaillet         ###   ########.fr       */
+/*   Updated: 2024/12/30 19:00:17 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct s_room
 {
 	char				map[6][7];
 	int					p_pos[5];
+	int					r_pos[3];
 	int					enemy_pos[3];
 }	t_room;
 
@@ -228,6 +229,7 @@ void	player_mapmove(t_mlx_data *data);
 void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
 int		player_hitbox(t_mlx_data *data, int x, int y);
+int		player_colider(t_mlx_data *data, int *xy);
 int		player_coordinate(int coor);
 
 /* ************************************************************************** */
