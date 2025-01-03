@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/30 17:57:28 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 13:54:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	mlx_actions(t_mlx_data *data, int x, int y)
 	data->room->p_pos[2] = player_coordinate(x - VIEW_X + HITBOX_W);
 	data->room->p_pos[3] = player_coordinate(y - VIEW_Y + HITBOX_H);
 	player_move(data);
+	player_actions(data);
 }

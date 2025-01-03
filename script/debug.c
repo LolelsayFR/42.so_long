@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 02:26:09 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 11:43:19 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:41:54 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,7 @@ void	mlx_put_room_bg(t_mlx_data *data)
 		data->img->room_bg, VIEW_X, VIEW_Y);
 }
 
-void	ft_mapprint(t_list *liste)
-{
-	t_list	*tmp;
-
-	tmp = liste;
-	while (tmp != NULL)
-	{
-		ft_printf("%s", (char *)tmp->content);
-		tmp = tmp->next;
-	}
-}
-
-void	ft_roomprint(t_room *room)
+void	room_print(t_room *room)
 {
 	int	i;
 
@@ -53,9 +41,23 @@ void	ft_roomprint(t_room *room)
 		ft_printf("%s", room->map[i]);
 		i++;
 	}
+	ft_printf("\n");
 }
 
 int	player_coordinate(int coor)
 {
 	return ((coor / TILE_SIZE + 2) / 3 + 1);
+}
+
+void	map_print(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i] != NULL)
+	{
+		ft_printf("%s", map[i]);
+		i++;
+	}
+	ft_printf("\n");
 }

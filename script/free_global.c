@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 17:11:29 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:25:47 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	mlx_close(t_mlx_data *data)
 {
 	free(data->control);
 	sprite_clear_player(data);
-	free(data->player->inventory);
 	free(data->player);
 	sprite_clear_tilemap1(data);
 	free(data->img->tilemap);

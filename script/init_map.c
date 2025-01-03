@@ -6,12 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/12 15:17:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:38:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <string.h>
 
 int	map_init(t_mlx_data *data)
 {
@@ -101,4 +100,25 @@ int	map_check(t_mlx_data *data)
 		i++;
 	}
 	return (1);
+}
+
+void	visited_paste(t_map *map, int *ppos)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < 5 && y < map->size_y)
+	{
+		x = 0;
+		while (x < 5)
+		{
+			if (map->visited_map[y + (4 * ppos[1])]
+				[x + (4 * ppos[0])] == M_NOT_VISITED)
+				map->visited_map[y + (4 * ppos[1])][x + (4 * ppos[0])]
+					= map->map[y + (4 * ppos[1])][x + (4 * ppos[0])];
+			x++;
+		}
+		y++;
+	}
 }

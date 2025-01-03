@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/30 18:27:41 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:15:08 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	data_init(t_mlx_data *data, char *map_path)
 	data->control->right = 0;
 	data->control->left = 0;
 	data->control->primary = 0;
-	data->control->secondary = 0;
 	data->control->sprint = 0;
 	data->map->path = map_path;
 	sprites_init_player1(data);
@@ -41,13 +40,12 @@ void	data_init(t_mlx_data *data, char *map_path)
 void	player_init(t_mlx_data *data)
 {
 	data->player = ft_calloc(1, sizeof(t_player));
-	data->player->inventory = ft_calloc(1, sizeof(t_inventory));
-	data->player->inventory->size = DEFAULT_INV_S;
 	data->player->speed = DEFAULT_SPEED;
 	data->player->sprint = DEFAULT_SPRINT;
 	data->player->hp = DEFAULT_HP;
 	data->player->pos_x = 100;
 	data->player->pos_y = 100;
+	data->player->obj = 0;
 	data->player->player_step = 0;
 	data->map->player_pos[0] = 1;
 	data->map->player_pos[1] = 1;

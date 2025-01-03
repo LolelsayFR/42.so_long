@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2024/12/12 15:34:25 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/03 15:03:45 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME			=	so_long
 SRC				=	script/main.c\
 					script/player.c\
 					script/player2.c\
+					script/player_action.c\
 					script/render.c\
 					script/img.c\
 					script/init_map.c\

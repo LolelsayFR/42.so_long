@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/30 19:00:17 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:14:01 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,22 @@
 # define HITBOX_W		64
 # define HITBOX_H		64
 
+//Set the map charset
+# define M_WALL			'W'
+# define M_CH_OBJ_C		':'
+# define M_CH_OBJ_O		';'
+# define M_CH_HP_C		'~'
+# define M_CH_HP_O		'-'
+# define M_FLOOR		'.'
+# define M_DOOR_OBJ_C	'E'
+# define M_DOOR_OBJ_O	'e'
+# define M_DOOR_C		'D'
+# define M_DOOR_O		'd'
+# define M_PLAYER		'@'
+# define M_ENEMY		'$'
+# define M_FINISH		'F'
+# define M_NOT_VISITED	'*'
+
 //Dev settings
 # define PTH			"./sprites/"
 # define DEBUG			0
@@ -104,21 +120,7 @@ typedef struct s_control
 	int					right;
 	int					sprint;
 	int					primary;
-	int					secondary;
 }	t_control;
-
-typedef struct s_inventory
-{
-	int					size;
-	int					obj1;
-	int					obj2;
-	int					obj3;
-	int					obj4;
-	int					knife;
-	int					pistol;
-	int					bag;
-	int					heal;
-}	t_inventory;
 
 typedef struct s_player
 {
@@ -127,9 +129,8 @@ typedef struct s_player
 	int					speed;
 	int					sprint;
 	int					hp;
-	int					item;
+	int					obj;
 	int					player_step;
-	t_inventory			*inventory;
 }	t_player;
 
 typedef struct s_room
@@ -151,7 +152,7 @@ typedef struct s_map
 	int					end_pos[3];
 	int					player_pos[3];
 	int					enemy_pos[3];
-	int					interest;
+	int					obj;
 	int					isvalid;
 }	t_map;
 
@@ -229,8 +230,13 @@ void	player_mapmove(t_mlx_data *data);
 void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
 int		player_hitbox(t_mlx_data *data, int x, int y);
+int		player_hitbox_door(t_mlx_data *data, int x, int y, int *xy);
 int		player_colider(t_mlx_data *data, int *xy);
 int		player_coordinate(int coor);
+int		door_check(int x, int y);
+void	player_actions(t_mlx_data *data);
+void	door_action(t_mlx_data *data, int hit[5][3]);
+void	chest_action(t_mlx_data *data, int x, int y);
 
 /* ************************************************************************** */
 /*  Map functions                                                             */
@@ -241,6 +247,8 @@ int		map_check(t_mlx_data *data);
 int		map_paste(t_mlx_data *data);
 int		map_paste2(t_mlx_data *data, int x, int y);
 int		map_free(t_mlx_data *data);
+void	map_print(char **map);
+
 //Map decors
 void	map_decor(t_mlx_data *data);
 void	map_tilepos(t_mlx_data *data, int x, int y, char c);
@@ -259,11 +267,13 @@ void	map_voidpos(t_mlx_data *data, int x, int y);
 int		room_render(t_mlx_data *data);
 t_room	*room_clear(t_room *room);
 t_room	*room_paste(t_room *room, t_map *map, int *ppos);
+void	visited_paste(t_map *map, int *ppos);
+void	room_print(t_room *room);
+void	modified_room(t_room *room, t_map *map, int *ppos);
+
 /* ************************************************************************** */
 /*  Other functions (fun)                                                     */
 /* ************************************************************************** */
 int		color_map(t_mlx_data *data, int w, int h);
-void	ft_mapprint(t_list *liste);
-void	ft_roomprint(t_room *room);
 
 #endif

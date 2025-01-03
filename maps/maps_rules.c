@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 03:29:48 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/09 16:15:40 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/03 22:23:10 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@
 //
 //      Basic Map Example :
 //      
-//      WWWWWWWWWWEWW
+//      WWWWWWWWWWWWW
 //      W-..W.:.W...W
-//      W.@.D...D...W
+//      W.@.D...W...W
 //      W...W..:W...W
 //      WWWWWWDWWWDWW
 //      W:..W...W...W
-//      W...D...D.$.W
+//      W...D...E.$.W
 //      W...W:..W...W
 //      wwwwwwwwwwwww
 //
