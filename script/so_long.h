@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/03 22:14:01 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/05 04:45:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,18 @@
 # define TILE_SIZE		40
 
 //Set the hud size and pos
-# define HUD_X			540
+# define HUD_X			539
 # define HUD_Y			20
 # define HUD_W			400
 # define HUD_H			500
 
-//Set all sprites path
-# define BG				"./sprites/saturn.xpm"
+//Set all base sprites path
+# define BG				"./sprites/background.xpm"
 # define PLAYER			"./sprites/player/down1.xpm"
 # define ROOM_BG		"./sprites/room_bg.xpm"
 # define HUD_BG			"./sprites/hud_bg.xpm"
+# define E_TYPE_GHOST	"./sprites/enemy.xpm"
+# define E_TYPE_SPIKE	"./sprites/spikes.xpm"
 
 //Set player value and hitbox
 # define PLAYER_FRAMES	4
@@ -65,6 +67,11 @@
 # define HITBOX_H		64
 
 //Set the map charset
+# define MAP_SET	"W:~.ED@$&F"
+# define MAP_COLIDE	"WDE"
+# define MAP_ACTION	":~F"
+# define MAP_OPEN_DOOR	"de"
+# define MAP_CLOSE_DOOR	"DE"
 # define M_WALL			'W'
 # define M_CH_OBJ_C		':'
 # define M_CH_OBJ_O		';'
@@ -77,6 +84,7 @@
 # define M_DOOR_O		'd'
 # define M_PLAYER		'@'
 # define M_ENEMY		'$'
+# define M_SPIKE		'&'
 # define M_FINISH		'F'
 # define M_NOT_VISITED	'*'
 
@@ -133,6 +141,15 @@ typedef struct s_player
 	int					player_step;
 }	t_player;
 
+typedef struct s_enemy
+{
+	int					room_pos[3];
+	int					screen_pos[3];
+	int					speed;
+	char				*type;
+	int					player_step;
+}	t_enemy;
+
 typedef struct s_room
 {
 	char				map[6][7];
@@ -150,8 +167,9 @@ typedef struct s_map
 	int					size_x;
 	int					size_y;
 	int					end_pos[3];
+	int					end;
 	int					player_pos[3];
-	int					enemy_pos[3];
+	int					player;
 	int					obj;
 	int					isvalid;
 }	t_map;
@@ -171,6 +189,7 @@ typedef struct s_mlx_data
 	void				*mlx_ptr;
 	void				*win_ptr;
 	t_player			*player;
+	t_enemy				**enemy;
 	t_control			*control;
 	t_sprites			*img;
 	t_room				*room;
@@ -231,7 +250,7 @@ void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
 int		player_hitbox(t_mlx_data *data, int x, int y);
 int		player_hitbox_door(t_mlx_data *data, int x, int y, int *xy);
-int		player_colider(t_mlx_data *data, int *xy);
+int		player_colider(t_mlx_data *data, int x, int y);
 int		player_coordinate(int coor);
 int		door_check(int x, int y);
 void	player_actions(t_mlx_data *data);
@@ -239,15 +258,24 @@ void	door_action(t_mlx_data *data, int hit[5][3]);
 void	chest_action(t_mlx_data *data, int x, int y);
 
 /* ************************************************************************** */
+/*  Enemy functions                                                           */
+/* ************************************************************************** */
+t_enemy	*enemy_create(t_mlx_data *data, char c, int x, int y);
+t_enemy	*enemy_kill(t_mlx_data *data, int id);
+
+/* ************************************************************************** */
 /*  Map functions                                                             */
 /* ************************************************************************** */
 //Map Init, free and Check
+void	check_map_path(char *str);
 int		map_init(t_mlx_data *data);
 int		map_check(t_mlx_data *data);
+int		map_check2(t_mlx_data *data);
 int		map_paste(t_mlx_data *data);
 int		map_paste2(t_mlx_data *data, int x, int y);
 int		map_free(t_mlx_data *data);
 void	map_print(char **map);
+void	map_data_init(t_mlx_data *data, char c, int x, int y);
 
 //Map decors
 void	map_decor(t_mlx_data *data);

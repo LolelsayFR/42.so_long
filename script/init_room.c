@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:56:20 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/03 18:57:16 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/05 02:57:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_room	*room_clear(t_room *room)
 		x = 0;
 		while (x < 5)
 		{
-			room->map[y][x] = '.';
+			room->map[y][x] = M_WALL;
 			x++;
 		}
 		room->map[y][x] = '\n';
@@ -69,9 +69,9 @@ t_room	*room_paste(t_room *room, t_map *map, int *ppos)
 				room->map[y][x] = map->visited_map[y + (4 * ppos[1])]
 				[x + (4 * ppos[0])];
 			else
-				room->map[y][x] = '.';
-			if (room->map[y][x] == '@')
-				room->map[y][x] = '.';
+				room->map[y][x] = M_WALL;
+			if (room->map[y][x] == M_PLAYER)
+				room->map[y][x] = M_FLOOR;
 			x++;
 		}
 		room->map[y][x] = '\n';

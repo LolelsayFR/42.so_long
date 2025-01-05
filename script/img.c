@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/10 19:16:12 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:43:40 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,7 @@ void	mlx_put_hud_bg(t_mlx_data *data)
 
 void	mlx_put_player(t_mlx_data *data, int x, int y)
 {
-	static int	init = 0;
-
-	if (init == 0 || !data->img->player)
-	{
-		init = 1;
-		ft_printf(YEL"Need player init\n"RES);
-	}
-	else
+	if (data->img->player)
 		draw_image(data->img->player, data, x, y);
 }
 

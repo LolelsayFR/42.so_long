@@ -6,23 +6,26 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/03 22:26:32 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/05 02:48:09 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 int	main(int ac, char **av)
 {
 	t_mlx_data	data;
 
 	if (ac != 2)
-		return (ft_printf(RED"[ERROR] Please add map.\n"RES), RETURN_ERROR);
+		return (ft_printf(RED"[ERROR]\nPlease add map.\n"RES), RETURN_ERROR);
+	check_map_path(av[1]);
 	data_init(&data, av[1]);
 	if (!data.mlx_ptr || !data.control || !data.player)
 		return (RETURN_ERROR);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, WIDTH, HEIGHT, "So Long");
-	if (!data.win_ptr || data.map->isvalid <= 0)
+	if (!data.win_ptr)
 	{
 		mlx_close(&data);
 		return (RETURN_ERROR);
@@ -77,4 +80,25 @@ int	handle_input_keyrelease(int keysym, t_mlx_data *data)
 	if (DEBUG == 1)
 		ft_printf(RED"The %d key has been released\n"RES, keysym);
 	return (0);
+}
+
+void	check_map_path(char *str)
+{
+	int			i;
+	int			readed;
+	char		*s;
+	static char	*buff = NULL;
+
+	i = ft_strlen(str);
+	s = ft_substr(str, i - 4, i);
+	if (ft_strncmp(s, ".ber", 4))
+		return (free(s), ft_printf(RED"[ERROR]\nNot .ber map\n"RES), exit(-1));
+	free(s);
+	i = open(str, O_RDONLY);
+	buff = malloc(1);
+	readed = read(i, buff, 1);
+	close(i);
+	if (readed <= 0)
+		return (free(buff), ft_printf(RED"[ERROR]\nEmpty map.\n"RES), exit(-1));
+	free(buff);
 }

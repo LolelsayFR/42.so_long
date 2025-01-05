@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/03 22:25:47 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/04 21:39:26 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ int	mlx_close(t_mlx_data *data)
 	free(data->player);
 	sprite_clear_tilemap1(data);
 	free(data->img->tilemap);
-	if (data->map->isvalid > 0)
-	{
-		map_free(data);
-		mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
-		mlx_destroy_image(data->mlx_ptr, data->img->bg);
-	}
+	map_free(data);
+	mlx_destroy_image(data->mlx_ptr, data->img->hud_bg);
+	mlx_destroy_image(data->mlx_ptr, data->img->bg);
 	free(data->room);
 	free(data->map);
 	free(data->img);

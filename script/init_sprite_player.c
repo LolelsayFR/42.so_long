@@ -6,12 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 18:44:09 by emaillet          #+#    #+#             */
-/*   Updated: 2024/12/04 03:51:27 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/04 22:10:44 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdlib.h>
 
 int	sprites_init_player1(t_mlx_data *data)
 {

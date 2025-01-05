@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/03 13:54:14 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/05 02:49:36 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	mlx_clock(t_mlx_data *data)
 {
+	if (data->map->isvalid == 0)
+		return (ft_printf(RED"[MAP ERROR]\nRead above.\n"RES), mlx_close(data));
 	usleep(1000000 / 60);
 	room_render(data);
 	mlx_actions(data, data->player->pos_x, data->player->pos_y);
