@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:19 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 04:48:01 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:29:47 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	player_actions(t_mlx_data *data)
 	hit[3][1] = player_coordinate(data->player->pos_y - VIEW_Y + HITBOX_H + 10);
 	hit[4][0] = player_coordinate(data->player->pos_x - VIEW_X + HITBOX_W / 2);
 	hit[4][1] = player_coordinate(data->player->pos_y - VIEW_Y - 10);
-	if (!data->control->primary)
+	if (data->player->can_use != 1 || data->control->primary != 1)
 		return ;
 	set = MAP_CLOSE_DOOR;
 	if (ft_strchr(set, data->room->map[(hit[1][1] - 1)][(hit[1][0] - 1)])

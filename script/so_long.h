@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 04:45:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/06 21:14:11 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # define DEFAULT_SPRINT	4
 # define DEFAULT_HP		100
 # define DEFAULT_INV_S	1
+# define COOLDOWN		10
 # define HITBOX_W		64
 # define HITBOX_H		64
 
@@ -91,6 +92,8 @@
 //Dev settings
 # define PTH			"./sprites/"
 # define DEBUG			0
+# define FPS			60
+
 /* ************************************************************************** */
 /*  So_long custom struct                                                     */
 /* ************************************************************************** */
@@ -139,6 +142,8 @@ typedef struct s_player
 	int					hp;
 	int					obj;
 	int					player_step;
+	int					cooldown;
+	int					can_use;
 }	t_player;
 
 typedef struct s_enemy
@@ -194,6 +199,8 @@ typedef struct s_mlx_data
 	t_sprites			*img;
 	t_room				*room;
 	t_map				*map;
+	char				*timer;
+	char				*obj;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -227,6 +234,7 @@ void	sprite_clear_tilemap3(t_mlx_data *data);
 int		mlx_clock(t_mlx_data *data);
 void	mlx_render(t_mlx_data *data);
 void	mlx_actions(t_mlx_data *data, int x, int y);
+void	mlx_hud_render(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Img functions                                                             */
@@ -300,8 +308,9 @@ void	room_print(t_room *room);
 void	modified_room(t_room *room, t_map *map, int *ppos);
 
 /* ************************************************************************** */
-/*  Other functions (fun)                                                     */
+/*  Other functions                                                           */
 /* ************************************************************************** */
 int		color_map(t_mlx_data *data, int w, int h);
-
+void	action_cooldown(t_mlx_data *data);
+void	mlx_timer(t_mlx_data *data);
 #endif

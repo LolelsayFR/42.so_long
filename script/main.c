@@ -6,13 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 02:48:09 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:41:50 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 int	main(int ac, char **av)
 {
@@ -31,7 +29,6 @@ int	main(int ac, char **av)
 		return (RETURN_ERROR);
 	}
 	mlx_put_background(&data);
-	mlx_put_hud_bg(&data);
 	mlx_render(&data);
 	mlx_hook(data.win_ptr, 17, 0, mlx_close, &data);
 	mlx_hook(data.win_ptr, 2, KeyPressMask, handle_input, &data);
@@ -40,6 +37,19 @@ int	main(int ac, char **av)
 	mlx_loop(data.mlx_ptr);
 	mlx_close(&data);
 	return (0);
+}
+
+void	action_cooldown(t_mlx_data *data)
+{
+	if (data->player->can_use == -1 && data->control->primary == 1)
+	{
+		data->player->cooldown = COOLDOWN;
+		data->player->can_use = 0;
+	}
+	if (data->player->cooldown > 0)
+		data->player->cooldown--;
+	if (data->player->can_use == 0 && data->player->cooldown == 0)
+		data->player->can_use = 1;
 }
 
 int	handle_input(int keysym, t_mlx_data *data)

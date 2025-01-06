@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:19 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 04:15:55 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:27:16 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	door_action(t_mlx_data *data, int hit[5][3])
 		}
 		i++;
 	}
+	data->player->can_use = -1;
 }
 
 void	chest_action(t_mlx_data *data, int x, int y)
@@ -57,4 +58,5 @@ void	chest_action(t_mlx_data *data, int x, int y)
 		if (data->player->obj == data->map->obj)
 			mlx_close(data);
 	}
+	data->player->can_use = -1;
 }
