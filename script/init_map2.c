@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:59:36 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 04:04:42 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:38:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ void	map_data_init(t_mlx_data *data, char c, int x, int y)
 {
 	if (c == M_CH_OBJ_C)
 		data->map->obj++;
+	else if (c == M_CH_HP_C)
+		data->map->potion++;
 	else if (c == M_ENEMY || c == M_SPIKE)
-		enemy_create(data, c, x, y);
+		data->map->enemy++;
 	else if (c == M_FINISH)
 	{
 		data->map->end_pos[0] = x;

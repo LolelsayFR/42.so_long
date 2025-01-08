@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/04 21:23:58 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/08 22:57:09 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC				=	script/main.c\
 					script/player2.c\
 					script/player_action.c\
 					script/enemy.c\
+					script/enemy2.c\
 					script/render.c\
 					script/img.c\
 					script/init_map.c\
@@ -28,11 +29,12 @@ SRC				=	script/main.c\
 					script/tilepos3.c\
 					script/free_global.c\
 					script/init_global.c\
-					script/init_sprite_player.c\
-					script/init_sprite_tilemap.c\
-					script/init_sprite_tilemap2.c\
-					script/debug.c\
-					script/fun.c
+					script/init_sprite0.c\
+					script/init_sprite1.c\
+					script/init_sprite2.c\
+					script/init_sprite3.c\
+					script/hud.c\
+					script/debug.c
 
 GNL_PATH		=	./modules/get_next_line
 GNL				=	$(GNL_PATH)/get_next_line_bonus.c\
@@ -47,7 +49,7 @@ FTPRINTF		=	$(FTPRINTF_PATH)/libftprintf.a
 MINILIBX_PATH	=	./modules/minilibx-linux
 MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
-CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g
+CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -lm
 
 all:	$(NAME)
 

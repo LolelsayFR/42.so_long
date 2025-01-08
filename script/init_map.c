@@ -6,12 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 04:04:14 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:34:11 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <stdio.h>
 
 int	map_init(t_mlx_data *data)
 {
@@ -88,6 +87,7 @@ int	map_paste2(t_mlx_data *data, int x, int y)
 		}
 		y++;
 	}
+	data->enemy = ft_calloc(data->map->enemy + 1, sizeof(t_enemy *));
 	return (map_check(data));
 }
 
@@ -112,6 +112,7 @@ int	map_check(t_mlx_data *data)
 					|| j == 0 || j == data->map->size_x - 1)
 				&& (data->map->map[i][j] != M_WALL))
 				return (ft_printf(YEL"Map not closed by wall..\n"RES), 0);
+			enemy_create(data, data->map->map[i][j], j, i);
 			j++;
 		}
 		i++;
@@ -122,7 +123,7 @@ int	map_check(t_mlx_data *data)
 int	map_check2(t_mlx_data *data)
 {
 	if (data->map->size_x < 5 || data->map->size_y < 5)
-		ft_printf(YEL"[WARNING]\nMap too smol, 5x5 map minimum\n"RES);
+		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
 	if (data->map->player != 1)
 		return (ft_printf(YEL"Invalid player spawn count.\n"RES), 0);
 	if (data->map->obj < 1)

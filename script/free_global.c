@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/06 20:19:37 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/08 20:02:54 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	mlx_close(t_mlx_data *data)
 {
+	enemy_free(data);
 	free(data->timer);
 	free(data->control);
 	sprite_clear_player(data);
@@ -25,6 +26,7 @@ int	mlx_close(t_mlx_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img->bg);
 	free(data->room);
 	free(data->map);
+	sprite_clear_ui(data);
 	free(data->img);
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);

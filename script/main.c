@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/06 20:41:50 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:30:24 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	handle_input_keyrelease(int keysym, t_mlx_data *data)
 		data->control->sprint = 0;
 	else if (keysym == XK_space)
 		data->control->primary = 0;
+	mlx_hud_render(data);
 	if (DEBUG == 1)
 		ft_printf(RED"The %d key has been released\n"RES, keysym);
 	return (0);

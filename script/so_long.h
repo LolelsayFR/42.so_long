@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/06 21:14:11 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/08 22:34:25 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@
 # define PLAYER_FRAMES	4
 # define DEFAULT_SPEED	4
 # define DEFAULT_SPRINT	4
-# define DEFAULT_HP		100
-# define DEFAULT_INV_S	1
+# define DEFAULT_HP		8
 # define COOLDOWN		10
 # define HITBOX_W		64
 # define HITBOX_H		64
@@ -141,26 +140,31 @@ typedef struct s_player
 	int					sprint;
 	int					hp;
 	int					obj;
+	int					potion;
 	int					player_step;
 	int					cooldown;
 	int					can_use;
+	int					hitted;
 }	t_player;
 
 typedef struct s_enemy
 {
-	int					room_pos[3];
-	int					screen_pos[3];
+	int					spawn[2];
+	int					pos[2];
+	int					move[2];
 	int					speed;
-	char				*type;
-	int					player_step;
+	char				type;
+	int					active;
+	int					alive;
+	int					damage;
 }	t_enemy;
 
 typedef struct s_room
 {
 	char				map[6][7];
 	int					p_pos[5];
-	int					r_pos[3];
-	int					enemy_pos[3];
+	int					r_pos[2];
+	int					enemy_pos[2];
 }	t_room;
 
 typedef struct s_map
@@ -171,26 +175,38 @@ typedef struct s_map
 	char				*path;
 	int					size_x;
 	int					size_y;
-	int					end_pos[3];
+	int					end_pos[2];
 	int					end;
-	int					player_pos[3];
+	int					player_pos[2];
 	int					player;
 	int					obj;
+	int					enemy;
+	int					potion;
 	int					isvalid;
 }	t_map;
 
 typedef struct s_sprites
 {
 	t_img				*player;
+	t_img				*player_take;
 	t_img				*bg;
 	t_img				*hud_bg;
 	t_img				*room_bg;
+	t_img				*heart;
+	t_img				*spike;
+	t_img				*enemy;
+	t_img				*trophy;
+	t_img				*rope;
+	t_img				*relic[8];
 	t_sprites_player	*player_anim;
+	t_img				*anim_screamer[3];
+	t_img				*potion;
 	t_sprites_tilemap	*tilemap;
 }	t_sprites;
 
 typedef struct s_mlx_data
 {
+	unsigned long long	frames;
 	void				*mlx_ptr;
 	void				*win_ptr;
 	t_player			*player;
@@ -201,6 +217,9 @@ typedef struct s_mlx_data
 	t_map				*map;
 	char				*timer;
 	char				*obj;
+	char				*potion;
+	int					hc[5][2];
+	int					ouch;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -210,10 +229,13 @@ int		handle_input(int keysym, t_mlx_data *data);
 int		handle_input_keyrelease(int keysym, t_mlx_data *data);
 int		mlx_close(t_mlx_data *data);
 void	data_init(t_mlx_data *data, char *map_path);
+void	data_init2(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Sprites Init functions                                                    */
 /* ************************************************************************** */
+int		sprites_init_ui(t_mlx_data *data);
+int		sprites_init_ui2(t_mlx_data *data);
 int		sprites_init_player1(t_mlx_data *data);
 int		sprites_init_player2(t_mlx_data *data);
 void	sprite_clear_player(t_mlx_data *data);
@@ -227,6 +249,13 @@ int		sprites_init_other(t_mlx_data *data);
 void	sprite_clear_tilemap1(t_mlx_data *data);
 void	sprite_clear_tilemap2(t_mlx_data *data);
 void	sprite_clear_tilemap3(t_mlx_data *data);
+void	sprite_clear_ui(t_mlx_data *data);
+void	mlx_put_background(t_mlx_data *data);
+void	mlx_put_player(t_mlx_data *data, int x, int y);
+void	mlx_put_room_bg(t_mlx_data *data);
+void	mlx_put_hud_bg(t_mlx_data *data);
+void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y);
+void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
 
 /* ************************************************************************** */
 /*  Clock functions                                                           */
@@ -235,16 +264,9 @@ int		mlx_clock(t_mlx_data *data);
 void	mlx_render(t_mlx_data *data);
 void	mlx_actions(t_mlx_data *data, int x, int y);
 void	mlx_hud_render(t_mlx_data *data);
-
-/* ************************************************************************** */
-/*  Img functions                                                             */
-/* ************************************************************************** */
-void	mlx_put_background(t_mlx_data *data);
-void	mlx_put_player(t_mlx_data *data, int x, int y);
-void	mlx_put_room_bg(t_mlx_data *data);
-void	mlx_put_hud_bg(t_mlx_data *data);
-void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y);
-void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
+void	mlx_hud_render2(t_mlx_data *data);
+void	heart_hud(t_mlx_data *data);
+void	hit_box_cross_init(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Player functions                                                          */
@@ -262,14 +284,20 @@ int		player_colider(t_mlx_data *data, int x, int y);
 int		player_coordinate(int coor);
 int		door_check(int x, int y);
 void	player_actions(t_mlx_data *data);
-void	door_action(t_mlx_data *data, int hit[5][3]);
+void	door_action(t_mlx_data *data);
+void	door_action2(t_mlx_data *data, int i);
 void	chest_action(t_mlx_data *data, int x, int y);
 
 /* ************************************************************************** */
 /*  Enemy functions                                                           */
 /* ************************************************************************** */
-t_enemy	*enemy_create(t_mlx_data *data, char c, int x, int y);
-t_enemy	*enemy_kill(t_mlx_data *data, int id);
+void	enemy_create(t_mlx_data *data, char c, int x, int y);
+void	enemy_move(t_mlx_data *data, int id);
+void	enemy_render(t_mlx_data *data);
+void	enemy_free(t_mlx_data *data);
+void	enemy_colider(t_mlx_data *data);
+void	enemy_render_utils(t_mlx_data *data, int i, t_enemy	**e, int y);
+void	so_scream(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Map functions                                                             */
@@ -299,6 +327,7 @@ void	map_doorpos2(t_mlx_data *data, int x, int y, int *xy);
 void	map_doorpos3(t_mlx_data *data, int x, int y, int *xy);
 void	map_errorpos(t_mlx_data *data, int x, int y);
 void	map_voidpos(t_mlx_data *data, int x, int y);
+void	mlx_put_exit(t_mlx_data *data);
 //Room Functions
 int		room_render(t_mlx_data *data);
 t_room	*room_clear(t_room *room);
