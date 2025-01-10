@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_sprite1.c                                     :+:      :+:    :+:   */
+/*   init_sprite0.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 18:44:09 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 09:30:26 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 05:40:14 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ int	sprites_init_player1(t_mlx_data *data)
 			PTH"player/down3.xpm", &w, &h);
 	data->img->player_anim->down[3] = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"player/down4.xpm", &w, &h);
+	data->img->player_anim->dead = mlx_xpm_file_to_image(data->mlx_ptr,
+			PTH"player/dead.xpm", &w, &h);
+	data->img->player_anim->take = mlx_xpm_file_to_image(data->mlx_ptr,
+			PTH"player/take.xpm", &w, &h);
 	return (sprites_init_player2(data));
 }
 
@@ -58,6 +62,8 @@ int	sprites_init_player2(t_mlx_data *data)
 			PTH"player/right3.xpm", &w, &h);
 	data->img->player_anim->right[3] = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"player/right4.xpm", &w, &h);
+	data->img->menu = mlx_xpm_file_to_image(data->mlx_ptr,
+			PTH"popup/menu.xpm", &w, &h);
 	return (1);
 }
 
@@ -79,5 +85,8 @@ void	sprite_clear_player(t_mlx_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img->player_anim->up[1]);
 	mlx_destroy_image(data->mlx_ptr, data->img->player_anim->up[2]);
 	mlx_destroy_image(data->mlx_ptr, data->img->player_anim->up[3]);
+	mlx_destroy_image(data->mlx_ptr, data->img->player_anim->take);
+	mlx_destroy_image(data->mlx_ptr, data->img->player_anim->dead);
 	free(data->img->player_anim);
+	mlx_destroy_image(data->mlx_ptr, data->img->menu);
 }

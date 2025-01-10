@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 20:02:54 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 07:58:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	mlx_close(t_mlx_data *data)
 {
+	sprite_clear_minimap(data);
 	enemy_free(data);
 	free(data->timer);
 	free(data->control);

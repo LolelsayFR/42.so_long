@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:59:36 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 16:38:49 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:18:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	visited_paste(t_map *map, int *ppos)
 	int	y;
 
 	y = 0;
-	while (y < 5 && y < map->size_y)
+	while (y < 5 && y <= map->size_y)
 	{
 		x = 0;
 		while (x < 5)

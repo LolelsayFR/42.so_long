@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 20:03:54 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 08:29:16 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	data_init(t_mlx_data *data, char *map_path)
 	data->control->sprint = 0;
 	data->map->path = map_path;
 	data->map->obj = 0;
+	data->state = 0;
 	data_init2(data);
 }
 
@@ -37,6 +38,7 @@ void	data_init2(t_mlx_data *data)
 	sprites_init_player1(data);
 	sprites_init_door1(data);
 	sprites_init_ui(data);
+	sprites_init_minimap(data);
 	player_init(data);
 	data->map->isvalid = map_init(data);
 	data->room->r_pos[0] = -1;
@@ -44,6 +46,9 @@ void	data_init2(t_mlx_data *data)
 	data->timer = ft_calloc(1, sizeof(char));
 	mlx_timer(data);
 	data->frames = 0;
+	data->inpopup = 0;
+	data->hc[0][0] = 0;
+	data->hc[0][1] = 0;
 }
 
 void	player_init(t_mlx_data *data)

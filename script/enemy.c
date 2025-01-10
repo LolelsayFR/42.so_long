@@ -6,12 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:19:51 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 23:04:40 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:50:20 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include <math.h>
 
 void	enemy_create(t_mlx_data *data, char c, int x, int y)
 {
@@ -28,11 +27,11 @@ void	enemy_create(t_mlx_data *data, char c, int x, int y)
 	new->spawn[1] = y;
 	new->active = 0;
 	new->alive = 1;
-	new->speed = DEFAULT_SPEED;
+	new->speed = DEFAULT_SPEED / 2;
 	if (c == M_ENEMY)
-		new->damage = 1;
-	else
 		new->damage = 2;
+	else
+		new->damage = 1;
 	data->enemy[id] = new;
 	id++;
 }

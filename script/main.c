@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 14:30:24 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 08:47:23 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,12 @@ void	action_cooldown(t_mlx_data *data)
 
 int	handle_input(int keysym, t_mlx_data *data)
 {
-	if (keysym == XK_Escape)
+	if (data->state != 0 && data->state != 3)
 		mlx_close(data);
+	else if (keysym == XK_Escape && data->state == 3)
+		return (data->state = 0, draw_image(data->img->bg, data, 0, 0), 0);
+	else if (keysym == XK_Escape)
+		return (data->state = 3, 0);
 	else if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
 		data->control->right = 1;
 	else if (keysym == XK_a || keysym == XK_A || keysym == XK_Left)
@@ -68,6 +72,8 @@ int	handle_input(int keysym, t_mlx_data *data)
 		data->control->sprint = 1;
 	else if (keysym == XK_space)
 		data->control->primary = 1;
+	else if (keysym == XK_h || keysym == XK_H)
+		data->control->heal = 1;
 	if (DEBUG == 1)
 		ft_printf(GRN"The %d key has been pressed\n"RES, keysym);
 	return (0);
@@ -85,8 +91,10 @@ int	handle_input_keyrelease(int keysym, t_mlx_data *data)
 		data->control->down = 0;
 	else if (keysym == XK_Shift_L || keysym == XK_Shift_R)
 		data->control->sprint = 0;
-	else if (keysym == XK_space)
+	else if (keysym == XK_space || keysym == XK_Return)
 		data->control->primary = 0;
+	else if (keysym == XK_h || keysym == XK_H)
+		data->control->heal = 0;
 	mlx_hud_render(data);
 	if (DEBUG == 1)
 		ft_printf(RED"The %d key has been released\n"RES, keysym);

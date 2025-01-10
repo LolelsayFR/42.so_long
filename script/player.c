@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 12:02:04 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 03:33:22 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 	{
 		if (j >= interval)
 		{
-			data->img->player = set[i];
-			i++;
+			data->img->player = set[i++];
 			j = 0;
 			if (i == 1)
 				data->player->player_step++;
@@ -76,6 +75,7 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 		i = 0;
 		data->img->player = set[i];
 	}
+	data->player->taken = 0;
 }
 
 void	player_mapmove(t_mlx_data *data)

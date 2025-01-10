@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 10:56:20 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 02:57:14 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:34:51 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	room_render(t_mlx_data *data)
 		visited_paste(data->map, data->room->r_pos);
 		data->room = room_clear(data->room);
 		data->room = room_paste(data->room, data->map, data->room->r_pos);
-		room_print(data->room);
-		map_print(data->map->visited_map);
+		if (DEBUG)
+			room_print(data->room);
 	}
 	map_decor(data);
 	return (1);

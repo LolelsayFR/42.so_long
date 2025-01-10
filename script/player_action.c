@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:51:19 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 20:29:02 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 04:26:07 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	chest_action(t_mlx_data *data, int x, int y)
 		data->map->visited_map[(y - 1) + (data->room->r_pos[1] * 4)]
 		[(x - 1) + (data->room->r_pos[0] * 4)] = M_CH_OBJ_O;
 		data->player->obj++;
+		data->player->taken = 2;
 	}
 	if (data->room->map[(y - 1)][(x - 1)] == M_CH_HP_C)
 	{
@@ -65,11 +66,12 @@ void	chest_action(t_mlx_data *data, int x, int y)
 		data->map->visited_map[(y - 1) + (data->room->r_pos[1] * 4)]
 		[(x - 1) + (data->room->r_pos[0] * 4)] = M_CH_HP_O;
 		data->player->potion++;
+		data->player->taken = 1;
 	}
 	if (data->room->map[(y - 1)][(x - 1)] == M_FINISH)
 	{
 		if (data->player->obj == data->map->obj)
-			mlx_close(data);
+			data->state = 1;
 	}
 	mlx_hud_render(data);
 	data->player->player_step++;

@@ -6,22 +6,27 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 21:32:21 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 09:42:35 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+#include <unistd.h>
 
 int	mlx_clock(t_mlx_data *data)
 {
 	if (data->map->isvalid == 0)
 		return (ft_printf(RED"[MAP ERROR]\nRead above.\n"RES), mlx_close(data));
 	usleep(1000000 / FPS);
+	if (data->state != 0)
+		return (popup_hud(data), 1);
 	if (data->frames % FPS == 0 || data->frames == 0)
 	{
 		mlx_timer(data);
 		mlx_hud_render(data);
 	}
+	if (data->inpopup == 1)
+		data->inpopup = 0;
 	data->frames++;
 	mlx_render(data);
 	mlx_actions(data, data->player->pos_x, data->player->pos_y);
@@ -35,7 +40,16 @@ void	mlx_render(t_mlx_data *data)
 	mlx_put_exit(data);
 	mlx_put_player(data, data->player->pos_x, data->player->pos_y);
 	if (data->player->hp <= 0)
-		mlx_close(data);
+		data->state = 2;
+	if (data->control->heal && data->player->potion
+		&& data->player->hp < DEFAULT_HP)
+	{
+		data->control->heal = 0;
+		data->player->potion--;
+		data->map->potion--;
+		data->player->taken = 1;
+		data->player->hp++;
+	}
 }
 
 void	mlx_actions(t_mlx_data *data, int x, int y)
@@ -64,6 +78,8 @@ void	mlx_put_exit(t_mlx_data *data)
 {
 	int	pos[2];
 
+	if (data->state != 0)
+		return ;
 	pos[0] = ((data->map->end_pos[0] - (data->map->player_pos[0] - 1) * 4)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_X;
 	pos[1] = ((data->map->end_pos[1] - (data->map->player_pos[1] - 1) * 4)

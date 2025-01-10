@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/08 22:57:09 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/10 08:04:25 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,10 @@ SRC				=	script/main.c\
 					script/init_sprite1.c\
 					script/init_sprite2.c\
 					script/init_sprite3.c\
+					script/init_sprite4.c\
 					script/hud.c\
+					script/menu.c\
+					script/minimap.c\
 					script/debug.c
 
 GNL_PATH		=	./modules/get_next_line
