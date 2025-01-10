@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 09:46:10 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:30:48 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,7 @@ int		mlx_close(t_mlx_data *data);
 void	data_init(t_mlx_data *data, char *map_path);
 void	data_init2(t_mlx_data *data);
 void	pause_handle_input(t_mlx_data *data);
+void	end_handle_input(t_mlx_data *data);
 
 /* ************************************************************************** */
 /*  Sprites Init functions                                                    */

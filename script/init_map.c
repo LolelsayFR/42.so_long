@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 09:36:54 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:43:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	map_check2(t_mlx_data *data)
 	int	i;
 
 	i = 0;
-	if (data->map->size_x < 5 || data->map->size_y < 5)
+	if (data->map->size_x < 4 || data->map->size_y < 4)
 		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
 	if (data->map->player != 1)
 		return (ft_printf(YEL"Invalid player spawn count.\n"RES), 0);

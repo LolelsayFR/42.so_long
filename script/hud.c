@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 09:00:26 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 08:19:11 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:35:36 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,15 @@ void	popup_hud(t_mlx_data *data)
 		data->inpopup = 1;
 	}
 	if (data->state == 1)
+	{
 		draw_image(data->img->popup[0], data, WIDTH / 2 - 100, HEIGHT / 2 - 21);
+		end_handle_input(data);
+	}
 	else if (data->state == 2)
+	{
 		draw_image(data->img->popup[1], data, WIDTH / 2 - 100, HEIGHT / 2 - 21);
+		end_handle_input(data);
+	}
 	else if (data->state == 3)
 		pause_handle_input(data);
 }

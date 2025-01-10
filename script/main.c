@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:03 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 08:47:23 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:42:40 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ void	action_cooldown(t_mlx_data *data)
 
 int	handle_input(int keysym, t_mlx_data *data)
 {
-	if (data->state != 0 && data->state != 3)
-		mlx_close(data);
-	else if (keysym == XK_Escape && data->state == 3)
+	if (keysym == XK_Escape && data->state == 3)
 		return (data->state = 0, draw_image(data->img->bg, data, 0, 0), 0);
-	else if (keysym == XK_Escape)
+	else if (keysym == XK_Escape && data->state == 0)
 		return (data->state = 3, 0);
 	else if (keysym == XK_d || keysym == XK_D || keysym == XK_Right)
 		data->control->right = 1;
