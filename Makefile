@@ -14,30 +14,29 @@ NAME			=	so_long
 
 
 SRC				=	script/main.c\
-					script/player.c\
-					script/player2.c\
-					script/player_action.c\
-					script/enemy.c\
-					script/enemy2.c\
-					script/render.c\
-					script/img.c\
-					script/init_map.c\
-					script/init_map2.c\
-					script/init_room.c\
-					script/tilepos.c\
-					script/tilepos2.c\
-					script/tilepos3.c\
-					script/free_global.c\
-					script/init_global.c\
-					script/init_sprite0.c\
-					script/init_sprite1.c\
-					script/init_sprite2.c\
-					script/init_sprite3.c\
-					script/init_sprite4.c\
-					script/hud.c\
-					script/menu.c\
-					script/minimap.c\
-					script/debug.c
+					script/player/player.c\
+					script/player/player2.c\
+					script/player/player_action.c\
+					script/enemy/enemy.c\
+					script/enemy/enemy2.c\
+					script/render/render.c\
+					script/render/debug.c\
+					script/map/init_map.c\
+					script/map/init_map2.c\
+					script/map/init_room.c\
+					script/map/tilepos.c\
+					script/map/tilepos2.c\
+					script/map/tilepos3.c\
+					script/utils/free_global.c\
+					script/init/init_global.c\
+					script/init/init_sprite0.c\
+					script/init/init_sprite1.c\
+					script/init/init_sprite2.c\
+					script/init/init_sprite3.c\
+					script/init/init_sprite4.c\
+					script/utils/hud.c\
+					script/utils/menu.c\
+					script/utils/minimap.c
 
 GNL_PATH		=	./modules/get_next_line
 GNL				=	$(GNL_PATH)/get_next_line_bonus.c\
