@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 02:26:09 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 08:31:20 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 05:44:48 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,15 @@ void	room_print(t_room *room)
 int	player_coordinate(int coor)
 {
 	return ((coor / TILE_SIZE + 2) / 3 + 1);
+}
+
+int	isdooropen(char c)
+{
+	int	isopen;
+
+	if (c == M_DOOR_O || c == M_DOOR_OBJ_O)
+		isopen = 2;
+	else
+		isopen = 0;
+	return (isopen);
 }

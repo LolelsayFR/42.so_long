@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 08:29:16 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 08:16:56 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	data_init(t_mlx_data *data, char *map_path)
 	data->img = ft_calloc(1, sizeof(t_sprites));
 	data->map = ft_calloc(1, sizeof(t_map));
 	data->room = ft_calloc(1, sizeof(t_room));
+	data->floodfill = ft_calloc(1, sizeof(t_flood));
 	data->control->up = 0;
 	data->control->down = 0;
 	data->control->right = 0;

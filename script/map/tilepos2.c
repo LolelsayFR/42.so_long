@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 08:23:53 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/05 00:01:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 03:29:45 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,22 @@ void	map_floorpos2(t_mlx_data *data, int x, int y)
 
 void	map_chestpos2(t_mlx_data *data, int x, int y, int *xy)
 {
-	if (xy[3] == M_CH_OBJ_C && xy[1] == 1 && xy[0] == 1)
-		mlx_put_tiles(data, data->img->tilemap->chest[0], x, y);
-	else if (xy[3] == M_CH_HP_C && xy[1] == 1 && xy[0] == 1)
-		mlx_put_tiles(data, data->img->tilemap->red_chest[0], x, y);
-	else if (xy[3] == M_CH_OBJ_O && xy[1] == 1 && xy[0] == 1)
-		mlx_put_tiles(data, data->img->tilemap->chest[1], x, y);
-	else if (xy[3] == M_CH_HP_O && xy[1] == 1 && xy[0] == 1)
-		mlx_put_tiles(data, data->img->tilemap->red_chest[1], x, y);
+	t_img	*chest;
+
+	if (xy[3] == M_CH_OBJ_C)
+		chest = data->img->tilemap->chest[0];
+	else if (xy[3] == M_CH_OBJ_O)
+		chest = data->img->tilemap->chest[1];
+	else if (xy[3] == M_CH_HP_C)
+		chest = data->img->tilemap->red_chest[0];
+	else if (xy[3] == M_CH_HP_O)
+		chest = data->img->tilemap->red_chest[1];
+	if (xy[1] == 1 && xy[0] == 1)
+		mlx_put_tiles(data, chest, x, y);
+	else if ((xy[1] == 1 && x == 11) || (xy[0] == 1 && y == 11))
+		mlx_put_tiles(data, chest, x, y);
+	else if ((xy[0] == 1 && y == 1) || (xy[1] == 1 && x == 11))
+		mlx_put_tiles(data, chest, x, y);
 	else
 		map_floorpos2(data, x, y);
 }

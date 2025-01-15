@@ -6,11 +6,11 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 09:21:50 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 02:50:11 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../so_long.h"
 
 void	mlx_put_background(t_mlx_data *data)
 {

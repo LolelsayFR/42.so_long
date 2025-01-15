@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:59:36 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 09:18:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 06:46:26 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,11 @@ void	map_data_init(t_mlx_data *data, char c, int x, int y)
 		data->map->end++;
 	}
 	else if (c == M_PLAYER)
+	{
 		data->map->player++;
+		data->player->spawn[0] = y;
+		data->player->spawn[1] = x;
+	}
 }
 
 void	visited_paste(t_map *map, int *ppos)
@@ -49,4 +53,32 @@ void	visited_paste(t_map *map, int *ppos)
 		}
 		y++;
 	}
+}
+
+int	map_paste_dup(t_mlx_data *data)
+{
+	t_list	*temp;
+	int		i;
+
+	i = 0;
+	temp = data->map->temp_map;
+	while (temp != NULL)
+	{
+		if (temp->content != NULL)
+		{
+			data->map->map[i] = ft_strdup(temp->content);
+			data->map->visited_map[i] = ft_strdup(temp->content);
+			if (!data->map->map[i] || !data->map->visited_map[i])
+				return (RETURN_ERROR);
+			ft_memset(data->map->visited_map[i], M_NOT_VISITED,
+				ft_strlen(temp->content) - 1);
+		}
+		i++;
+		temp = temp->next;
+	}
+	data->map->visited_map[i] = NULL;
+	data->map->map[i] = NULL;
+	data->map->size_x = ft_strlen(data->map->map[0]) - 1;
+	data->map->size_y = i - 1;
+	return (i);
 }

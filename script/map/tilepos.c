@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 02:17:01 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/08 13:36:02 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 04:41:13 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	map_doorpos(t_mlx_data *data, int x, int y, char c)
 		xy[1] = 0;
 		while (xy[1] < 3)
 		{
+			if ((x >= 4 && x <= 12) && (y >= 4 && y <= 12))
+				return (map_doorpos_middle(data, x, y, c));
 			if (c == M_DOOR_OBJ_O || c == M_DOOR_OBJ_C)
 				map_doorpos3(data, x - xy[0], y - xy[1], xy);
 			else

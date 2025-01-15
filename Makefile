@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/10 08:04:25 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/15 06:05:50 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,12 +21,15 @@ SRC				=	script/main.c\
 					script/enemy/enemy2.c\
 					script/render/render.c\
 					script/render/debug.c\
+					script/utils/img.c\
 					script/map/init_map.c\
 					script/map/init_map2.c\
+					script/map/init_map3.c\
 					script/map/init_room.c\
 					script/map/tilepos.c\
 					script/map/tilepos2.c\
 					script/map/tilepos3.c\
+					script/map/tilepos4.c\
 					script/utils/free_global.c\
 					script/init/init_global.c\
 					script/init/init_sprite0.c\
@@ -36,7 +39,8 @@ SRC				=	script/main.c\
 					script/init/init_sprite4.c\
 					script/utils/hud.c\
 					script/utils/menu.c\
-					script/utils/minimap.c
+					script/utils/minimap.c\
+					script/map/floodfill.c
 
 GNL_PATH		=	./modules/get_next_line
 GNL				=	$(GNL_PATH)/get_next_line_bonus.c\

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 10:43:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 08:08:07 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,28 @@ int	map_init(t_mlx_data *data)
 int	map_paste(t_mlx_data *data)
 {
 	int		i;
-	t_list	*temp;
+	int		new_size_x;
+	int		new_size_y;
 
 	i = ft_lstsize(data->map->temp_map);
 	data->map->map = ft_calloc((i + 1), sizeof(char *));
+	if (!data->map->map)
+		return (RETURN_ERROR);
 	data->map->visited_map = ft_calloc((i + 1), sizeof(char *));
-	i = 0;
-	temp = data->map->temp_map;
-	while (temp->content != NULL)
-	{
-		data->map->map[i] = ft_strdup(temp->content);
-		data->map->visited_map[i] = ft_strdup(temp->content);
-		ft_memset(data->map->visited_map[i], M_NOT_VISITED,
-			ft_strlen(temp->content) - 1);
-		i++;
-		temp = temp->next;
-	}
-	data->map->visited_map[i] = NULL;
-	data->map->map[i] = NULL;
-	data->map->size_x = ft_strlen(data->map->map[0]) - 1;
-	data->map->size_y = i - 1;
+	if (!data->map->visited_map)
+		return (RETURN_ERROR);
+	if (!map_paste_dup(data))
+		return (RETURN_ERROR);
+	if (data->map->size_x % 4 == 1)
+		new_size_x = data->map->size_x;
+	else
+		new_size_x = data->map->size_x + (4 - (data->map->size_x % 4) + 1);
+	if (data->map->size_y % 4 == 1)
+		new_size_y = data->map->size_y;
+	else
+		new_size_y = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
+	if (new_size_x != data->map->size_x || new_size_y != data->map->size_y)
+		return (expand_map(data, new_size_x, new_size_y));
 	return (map_paste2(data, 0, 0));
 }
 
@@ -122,9 +124,6 @@ int	map_check(t_mlx_data *data)
 
 int	map_check2(t_mlx_data *data)
 {
-	int	i;
-
-	i = 0;
 	if (data->map->size_x < 4 || data->map->size_y < 4)
 		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
 	if (data->map->player != 1)
@@ -133,5 +132,6 @@ int	map_check2(t_mlx_data *data)
 		return (ft_printf(YEL"Invalid colectible count.\n"RES), 0);
 	if (data->map->end != 1)
 		return (ft_printf(YEL"Invalid end count.\n"RES), 0);
-	return (1);
+	data->floodfill->map = tabdup(data->map->map);
+	return (floodfill(data, data->player->spawn[1], data->player->spawn[0]));
 }

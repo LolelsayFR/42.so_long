@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 10:30:48 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 08:16:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 //Set return value
 # define RETURN_ERROR	-1
+# define RETURN_SUCCESS	1
 
 //Set the Window size
 # define WIDTH			960
@@ -87,6 +88,8 @@
 # define M_SPIKE		'&'
 # define M_FINISH		'F'
 # define M_NOT_VISITED	'*'
+# define M_FLOOD		'+'
+# define M_FLOOD2		'#'
 
 //Dev settings
 # define PTH			"./sprites/"
@@ -171,6 +174,7 @@ typedef struct s_player
 	int					can_use;
 	int					hitted;
 	int					taken;
+	int					spawn[2];
 }	t_player;
 
 typedef struct s_enemy
@@ -192,6 +196,12 @@ typedef struct s_room
 	int					r_pos[2];
 	int					enemy_pos[2];
 }	t_room;
+
+typedef struct s_flood
+{
+	int					obj;
+	char				**map;
+}	t_flood;
 
 typedef struct s_map
 {
@@ -251,6 +261,7 @@ typedef struct s_mlx_data
 	int					ouch;
 	int					state;
 	int					inpopup;
+	t_flood				*floodfill;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -349,6 +360,14 @@ int		map_paste2(t_mlx_data *data, int x, int y);
 int		map_free(t_mlx_data *data);
 void	map_print(char **map, t_mlx_data *data);
 void	map_data_init(t_mlx_data *data, char c, int x, int y);
+int		map_paste_dup(t_mlx_data *data);
+int		expand_map(t_mlx_data *data, int new_size_x, int new_size_y);
+int		expand_init(char ***map, char ***visited, int size_y);
+void	expand_fill(t_mlx_data *data, char **map, char **visited, int sizes[2]);
+void	ex_fill_line(t_mlx_data *data, char **map, char **visited, int pos[2]);
+void	expand_free_old(t_mlx_data *data);
+int		floodfill(t_mlx_data *data, int x, int y);
+char	**tabdup(char **map);
 
 //Map decors
 void	map_decor(t_mlx_data *data);
@@ -365,6 +384,9 @@ void	map_doorpos3(t_mlx_data *data, int x, int y, int *xy);
 void	map_errorpos(t_mlx_data *data, int x, int y);
 void	map_voidpos(t_mlx_data *data, int x, int y);
 void	mlx_put_exit(t_mlx_data *data);
+void	map_doorpos_middle(t_mlx_data *data, int x, int y, char c);
+int		isdooropen(char c);
+
 //Room Functions
 int		room_render(t_mlx_data *data);
 t_room	*room_clear(t_room *room);
@@ -372,6 +394,7 @@ t_room	*room_paste(t_room *room, t_map *map, int *ppos);
 void	visited_paste(t_map *map, int *ppos);
 void	room_print(t_room *room);
 void	modified_room(t_room *room, t_map *map, int *ppos);
+
 //Minimap Functions
 void	minimap_print_one(t_mlx_data *data, int x, int y, char c);
 

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 07:58:49 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 07:03:21 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ int	map_free(t_mlx_data *data)
 	{
 		free(data->map->map[i]);
 		free(data->map->visited_map[i]);
+		free(data->floodfill->map[i]);
 		i++;
 	}
 	free(data->map->map);
 	free(data->map->visited_map);
+	free(data->floodfill->map);
+	free(data->floodfill);
 	ft_lstclear(&data->map->temp_map, free);
 	return (1);
 }
