@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 04:04:10 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 04:23:20 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:01:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ int	expand_map(t_mlx_data *data, int new_size_x, int new_size_y)
 	data->map->visited_map = new_visited_map;
 	data->map->size_x = new_size_x;
 	data->map->size_y = new_size_y;
-	return (map_paste2(data, 0, 0));
+	return (1);
 }

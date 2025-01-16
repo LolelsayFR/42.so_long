@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 20:43:35 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:23:32 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	map_paste(t_mlx_data *data)
 
 int	map_paste2(t_mlx_data *data, int x, int y)
 {
-	data->floodfill->map = tabdup(data->map->map);
 	y = 0;
 	while (data->map->map[y] != NULL)
 	{
@@ -116,7 +115,7 @@ int	map_check2(t_mlx_data *data)
 	int		new_size_x;
 	int		new_size_y;
 
-	if (data->map->size_x < 4 || data->map->size_y < 4)
+	if (data->map->size_x % 4 != 1 || data->map->size_y % 4 != 1)
 		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
 	if (data->map->player != 1)
 		return (ft_printf(YEL"Invalid player spawn count.\n"RES), 0);
@@ -132,9 +131,10 @@ int	map_check2(t_mlx_data *data)
 		new_size_y = data->map->size_y;
 	else
 		new_size_y = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
-	floodfill(data, data->player->spawn[1], data->player->spawn[0]);
 	if (check_rectangular(data->map->map)
 		&& (new_size_x != data->map->size_x || new_size_y != data->map->size_y))
-		return (expand_map(data, new_size_x, new_size_y));
+		expand_map(data, new_size_x, new_size_y);
+	data->floodfill->map = tabdup(data->map->map);
+	floodfill(data, data->player->spawn[1], data->player->spawn[0]);
 	return (1);
 }

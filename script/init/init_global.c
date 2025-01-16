@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 20:41:59 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 20:33:36 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	data_init2(t_mlx_data *data)
 	sprites_init_ui(data);
 	sprites_init_minimap(data);
 	player_init(data);
-	data->map->isvalid = map_init(data);
 	data->room->r_pos[0] = -1;
 	data->room->r_pos[1] = -1;
+	data->map->isvalid = map_init(data);
 	data->timer = ft_calloc(1, sizeof(char));
 	mlx_timer(data);
 	data->frames = 0;

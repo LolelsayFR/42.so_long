@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 19:43:58 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 19:34:44 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	player_mapmove(t_mlx_data *data)
 
 void	player_mapmove2(t_mlx_data *data)
 {
-	if (data->player->pos_x > VIEW_W + VIEW_X - (HITBOX_H + 25))
+	if (data->player->pos_x > VIEW_W + VIEW_X - HITBOX_H + 25)
 	{
 		if (data->map->player_pos[0] < data->map->size_x / 4)
 		{
@@ -119,7 +119,7 @@ void	player_mapmove2(t_mlx_data *data)
 	{
 		if (data->map->player_pos[0] > 1)
 		{
-			data->player->pos_x = VIEW_W + VIEW_X - (HITBOX_H + 25);
+			data->player->pos_x = VIEW_W + VIEW_X - HITBOX_H + 25;
 			data->map->player_pos[0]--;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 20:37:56 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 21:03:00 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,13 @@ void	mlx_put_exit(t_mlx_data *data)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_X;
 	pos[1] = ((data->map->end_pos[1] - (data->map->player_pos[1] - 1) * 4)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_Y;
-	if ((pos[0] > VIEW_X && pos[0] < VIEW_W + VIEW_X)
-		&& (pos[1] > VIEW_Y && pos[1] < VIEW_H + VIEW_Y))
-		draw_image(data->img->trophy, data, pos[0], pos[1]);
+	if (data->map->end_pos[0] % 4 == 1 || data->map->end_pos[1] % 4 == 1)
+	{
+		draw_player(data->img->trophy, data, pos[0] + TILE_SIZE, pos[1]);
+		draw_player(data->img->trophy, data, pos[0] - TILE_SIZE, pos[1]);
+		draw_player(data->img->trophy, data, pos[0], pos[1] + TILE_SIZE);
+		draw_player(data->img->trophy, data, pos[0], pos[1] - TILE_SIZE);
+	}
+	else
+		draw_player(data->img->trophy, data, pos[0], pos[1]);
 }

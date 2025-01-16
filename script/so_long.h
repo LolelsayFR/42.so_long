@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 20:10:53 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:55:11 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,7 @@ void	mlx_put_room_bg(t_mlx_data *data);
 void	mlx_put_hud_bg(t_mlx_data *data);
 void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y);
 void	draw_image(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
+void	draw_player(t_img *img, t_mlx_data *data, int x_offset, int y_offset);
 void	popup_hud(t_mlx_data *data);
 
 /* ************************************************************************** */

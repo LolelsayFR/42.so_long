@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 02:50:11 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:20:59 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,19 @@ void	mlx_put_player(t_mlx_data *data, int x, int y)
 	static int	i = 0;
 
 	if (data->img->shield && data->player->hitted && (i % 10 < 2))
-		draw_image(data->img->shield, data, x, y);
+		draw_player(data->img->shield, data, x, y);
 	if (data->player->taken || data->state == 1)
-		draw_image(data->img->player_anim->take, data, x, y);
+		draw_player(data->img->player_anim->take, data, x, y);
 	else if (data->state == 2)
-		draw_image(data->img->player_anim->dead, data, x, y);
+		draw_player(data->img->player_anim->dead, data, x, y);
 	else if (data->img->player)
-		draw_image(data->img->player, data, x, y);
+		draw_player(data->img->player, data, x, y);
 	if (data->player->taken == 1)
-		draw_image(data->img->potion, data, x + 14, y - 5);
+		draw_player(data->img->potion, data, x + 14, y - 5);
 	else if (data->player->taken == 2)
-		draw_image(data->img->relic[data->frames % 8], data, x + 17, y - 5);
+		draw_player(data->img->relic[data->frames % 8], data, x + 17, y - 5);
 	else if (data->state == 1)
-		draw_image(data->img->trophy, data, x + 16, y - 25);
+		draw_player(data->img->trophy, data, x + 16, y - 25);
 	i++;
 	if (i == FPS * 4)
 		i = 0;

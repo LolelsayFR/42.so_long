@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 02:26:09 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 05:44:48 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:26:34 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,30 @@ int	isdooropen(char c)
 	else
 		isopen = 0;
 	return (isopen);
+}
+
+void	draw_player(t_img *img, t_mlx_data *data, int x_offset, int y_offset)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+	char			*pixel_data;
+	int				pixel_pos;
+
+	y = -1;
+	while (++y < img->height)
+	{
+		x = -1;
+		pixel_data = img->data + y * img->size_line;
+		while (++x < img->width)
+		{
+			pixel_pos = x * (img->bpp / 8);
+			color = *((unsigned int *)(pixel_data + pixel_pos));
+			if (color != 0xFF000000
+				&& x + x_offset < VIEW_W + VIEW_X && x + x_offset > VIEW_X
+				&& y + y_offset < VIEW_H + VIEW_Y && y + y_offset > VIEW_Y)
+				mlx_pixel_put(data->mlx_ptr, data->win_ptr, x
+					+ x_offset, y + y_offset, color);
+		}
+	}
 }
