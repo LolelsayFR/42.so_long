@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 10:32:02 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:43:58 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,21 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 
 void	player_mapmove(t_mlx_data *data)
 {
-	if (data->player->pos_y > VIEW_H + VIEW_Y - (HITBOX_H))
+	if (data->player->pos_y > VIEW_H + VIEW_Y - (HITBOX_H + 25))
 	{
 		if (data->map->player_pos[1] <= data->map->size_y / 4)
 		{
-			data->player->pos_y = VIEW_Y;
+			data->player->pos_y = VIEW_Y - 25;
 			data->map->player_pos[1]++;
 		}
 		else
 			data->player->pos_y = VIEW_H + VIEW_Y - (HITBOX_H);
 	}
-	else if (data->player->pos_y < VIEW_Y)
+	else if (data->player->pos_y < VIEW_Y - 25)
 	{
 		if (data->map->player_pos[1] > 1)
 		{
-			data->player->pos_y = VIEW_H + VIEW_Y - (HITBOX_H);
+			data->player->pos_y = VIEW_H + VIEW_Y - (HITBOX_H + 25);
 			data->map->player_pos[1]--;
 		}
 		else
@@ -105,21 +105,21 @@ void	player_mapmove(t_mlx_data *data)
 
 void	player_mapmove2(t_mlx_data *data)
 {
-	if (data->player->pos_x > VIEW_W + VIEW_X - (HITBOX_H))
+	if (data->player->pos_x > VIEW_W + VIEW_X - (HITBOX_H + 25))
 	{
 		if (data->map->player_pos[0] < data->map->size_x / 4)
 		{
-			data->player->pos_x = VIEW_X;
+			data->player->pos_x = VIEW_X - 25;
 			data->map->player_pos[0]++;
 		}
 		else
 			data->player->pos_x = VIEW_W + VIEW_X - (HITBOX_H);
 	}
-	else if (data->player->pos_x < VIEW_X)
+	else if (data->player->pos_x < VIEW_X - 25)
 	{
 		if (data->map->player_pos[0] > 1)
 		{
-			data->player->pos_x = VIEW_W + VIEW_X - (HITBOX_H);
+			data->player->pos_x = VIEW_W + VIEW_X - (HITBOX_H + 25);
 			data->map->player_pos[0]--;
 		}
 		else

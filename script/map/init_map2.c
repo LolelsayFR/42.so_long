@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:59:36 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 06:46:26 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:12:10 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,18 @@ int	map_paste_dup(t_mlx_data *data)
 	data->map->size_x = ft_strlen(data->map->map[0]) - 1;
 	data->map->size_y = i - 1;
 	return (i);
+}
+
+int	check_rectangular(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		if (ft_strlen(tab[i]) != ft_strlen(tab[0]))
+			return (0);
+		i++;
+	}
+	return (1);
 }

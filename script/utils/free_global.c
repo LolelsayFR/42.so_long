@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:55:52 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 07:03:21 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 19:10:55 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	map_free(t_mlx_data *data)
 	int	i;
 
 	i = 0;
-	while (data->map->map[i] != NULL)
+	while (data->map->map[i] && data->map->visited_map[i])
 	{
 		free(data->map->map[i]);
 		free(data->map->visited_map[i]);

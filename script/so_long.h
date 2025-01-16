@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 08:16:49 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:10:53 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,6 +201,7 @@ typedef struct s_flood
 {
 	int					obj;
 	char				**map;
+	char				isvalid;
 }	t_flood;
 
 typedef struct s_map
@@ -404,4 +405,6 @@ void	minimap_print_one(t_mlx_data *data, int x, int y, char c);
 int		color_map(t_mlx_data *data, int w, int h);
 void	action_cooldown(t_mlx_data *data);
 void	mlx_timer(t_mlx_data *data);
+int		check_rectangular(char **tab);
+
 #endif

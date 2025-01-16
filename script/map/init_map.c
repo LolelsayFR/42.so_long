@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 08:08:07 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:43:35 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ int	map_init(t_mlx_data *data)
 int	map_paste(t_mlx_data *data)
 {
 	int		i;
-	int		new_size_x;
-	int		new_size_y;
 
 	i = ft_lstsize(data->map->temp_map);
 	data->map->map = ft_calloc((i + 1), sizeof(char *));
@@ -54,28 +52,19 @@ int	map_paste(t_mlx_data *data)
 		return (RETURN_ERROR);
 	if (!map_paste_dup(data))
 		return (RETURN_ERROR);
-	if (data->map->size_x % 4 == 1)
-		new_size_x = data->map->size_x;
-	else
-		new_size_x = data->map->size_x + (4 - (data->map->size_x % 4) + 1);
-	if (data->map->size_y % 4 == 1)
-		new_size_y = data->map->size_y;
-	else
-		new_size_y = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
-	if (new_size_x != data->map->size_x || new_size_y != data->map->size_y)
-		return (expand_map(data, new_size_x, new_size_y));
 	return (map_paste2(data, 0, 0));
 }
 
 int	map_paste2(t_mlx_data *data, int x, int y)
 {
+	data->floodfill->map = tabdup(data->map->map);
 	y = 0;
 	while (data->map->map[y] != NULL)
 	{
 		x = 0;
 		while (data->map->map[y][x])
 		{
-			if (data->map->map[y][x] == M_PLAYER)
+			if (data->map->map[y][x] == M_PLAYER && data->map->player == 0)
 			{
 				data->player->pos_x = ((x % 4) * TILE_SIZE * 3) + VIEW_X
 					- (TILE_SIZE / 2) - (HITBOX_W / 2);
@@ -124,6 +113,9 @@ int	map_check(t_mlx_data *data)
 
 int	map_check2(t_mlx_data *data)
 {
+	int		new_size_x;
+	int		new_size_y;
+
 	if (data->map->size_x < 4 || data->map->size_y < 4)
 		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
 	if (data->map->player != 1)
@@ -132,6 +124,17 @@ int	map_check2(t_mlx_data *data)
 		return (ft_printf(YEL"Invalid colectible count.\n"RES), 0);
 	if (data->map->end != 1)
 		return (ft_printf(YEL"Invalid end count.\n"RES), 0);
-	data->floodfill->map = tabdup(data->map->map);
-	return (floodfill(data, data->player->spawn[1], data->player->spawn[0]));
+	if (data->map->size_x % 4 == 1)
+		new_size_x = data->map->size_x;
+	else
+		new_size_x = data->map->size_x + (4 - (data->map->size_x % 4) + 1);
+	if (data->map->size_y % 4 == 1)
+		new_size_y = data->map->size_y;
+	else
+		new_size_y = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
+	floodfill(data, data->player->spawn[1], data->player->spawn[0]);
+	if (check_rectangular(data->map->map)
+		&& (new_size_x != data->map->size_x || new_size_y != data->map->size_y))
+		return (expand_map(data, new_size_x, new_size_y));
+	return (1);
 }
