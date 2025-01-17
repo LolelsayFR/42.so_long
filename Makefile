@@ -6,12 +6,22 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/17 19:00:33 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/17 23:59:44 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			=	so_long
 
+STORY_MAP		=	maps/story/1.ber\
+					maps/story/2.ber\
+					maps/story/3.ber\
+					maps/story/4.ber\
+					maps/story/5.ber\
+					maps/story/6.ber\
+					maps/story/7.ber\
+					maps/story/8.ber\
+					maps/story/9.ber\
+					maps/story/10.ber
 
 SRC				=	script/main.c\
 					script/player/player.c\
@@ -20,7 +30,7 @@ SRC				=	script/main.c\
 					script/enemy/enemy.c\
 					script/enemy/enemy2.c\
 					script/render/render.c\
-					script/render/debug.c\
+					script/render/tools.c\
 					script/utils/img.c\
 					script/map/init_map.c\
 					script/map/init_map2.c\
@@ -58,9 +68,16 @@ MINILIBX		=	$(MINILIBX_PATH)/libmlx.a
 
 CFLAGS			=	-lXext -lX11 -Wall -Werror -Wextra -g -lm
 
-all:	$(NAME)
+all:	hello $(NAME) info
 
-lib: $(LIBFT) $(FTPRINTF) $(MINILIBX)
+hello:
+	@echo "\e[48;2;100;0;100;1m Welcome to SoLong Makefile\e[0m\n"
+
+info: hello
+	@echo "\n\e[48;2;70;70;70;1m SoLong usage : \e[0m\n"
+	@echo "./so_long <map path> \n make story\n"
+
+lib: hello $(LIBFT) $(FTPRINTF) $(MINILIBX)
 
 $(NAME): ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
 	@echo "\e[48;2;0;155;0;1m Compile Solong \e[0m\n"
@@ -84,20 +101,32 @@ $(MINILIBX):
 	@$(MAKE) --no-print-directory -C $(MINILIBX_PATH)
 	@echo "\n\e[48;2;0;0;155;1m Done for MINILIBX \e[0m\n"
 
-clean:
+clean: hello
 	@echo "\e[48;2;155;100;0;1m Clean SoLong dependencies \e[0m\n"
 	@$(RM) ${FTPRINTF} ${LIBFT}
 	@$(MAKE) --no-print-directory clean -C $(MINILIBX_PATH)
 	@echo "\n\e[48;2;0;0;155;1m Done \e[0m\n"
 
-fclean:	clean
+fclean:	hello clean
 	@echo "\e[48;2;155;100;0;1m Uninstall SoLong \e[0m\n"
 	@$(RM) $(NAME)
 	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
 
-re:	fclean all
+re:	hello fclean all
 
-debug: CFLAGS += -DDEBUG=1
-debug: re
+debug: hello ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
+	cc ${SRC} -D DEBUG=1 ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
 
-.PHONY: all clean fclean re lib debug
+story:  ${STORY_MAP} $(NAME)
+	@echo "\e[48;2;100;0;100;1m Good luck !! \e[0m\n"
+	@for map in ${STORY_MAP}; do \
+		echo "\e[48;2;100;0;100;1m Running $(NAME) with $$map Have fun !!\e[0m\n"; \
+		./$(NAME) $$map; \
+		if [ $$? -ne 1 ]; then \
+			echo "\e[48;2;100;0;100;1m Ohhh, its sad :c \e[0m\n"; \
+			exit 1; \
+		fi; \
+	echo "\e[48;2;100;0;100;1m GG !! \e[0m\n"; \
+    done;
+
+.PHONY: all clean fclean re lib debug story

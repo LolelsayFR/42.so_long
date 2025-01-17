@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 20:17:43 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:34:39 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	map_check(t_mlx_data *data, int i, int j)
 	{
 		ft_printf("%s", data->map->map[i]);
 		if (ft_strlen(data->map->map[i]) != ft_strlen(data->map->map[0]))
-			return (ft_printf(YEL"Map not rectangular...\n"RES), 0);
+			sl_logs(data->logs->checker, YEL"Map not rectangular...\n"RES);
 		j = 0;
 		while (data->map->map[i][j])
 		{
@@ -111,28 +111,28 @@ int	map_check(t_mlx_data *data, int i, int j)
 
 int	map_check2(t_mlx_data *data)
 {
-	int		new_size_x;
-	int		new_size_y;
+	int		newsize[2];
 
-	if (data->map->size_x % 4 != 1 || data->map->size_y % 4 != 1)
-		ft_printf(YEL"[WARNING]\nMap too smol, 5x5 map minimum\n"RES);
 	if (data->map->player != 1)
-		ft_printf(YEL"Bad player spawn count.\n"RES, data->map->isvalid = 0);
+		sl_logs(data->logs->checker,
+			YEL"Bad player spawn count.\n"RES, data->map->isvalid = 0);
 	if (data->map->obj < 1)
-		ft_printf(YEL"Bad colectible count.\n"RES, data->map->isvalid = 0);
+		sl_logs(data->logs->checker,
+			YEL"Bad colectible count.\n"RES, data->map->isvalid = 0);
 	if (data->map->end != 1)
-		ft_printf(YEL"Bad end count.\n"RES, data->map->isvalid = 0);
+		sl_logs(data->logs->checker,
+			YEL"Bad end count.\n"RES, data->map->isvalid = 0);
 	if (data->map->size_x % 4 == 1)
-		new_size_x = data->map->size_x;
+		newsize[0] = data->map->size_x;
 	else
-		new_size_x = data->map->size_x + (4 - (data->map->size_x % 4) + 1);
+		newsize[0] = data->map->size_x + (4 - (data->map->size_x % 4) + 1);
 	if (data->map->size_y % 4 == 1)
-		new_size_y = data->map->size_y;
+		newsize[1] = data->map->size_y;
 	else
-		new_size_y = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
+		newsize[1] = data->map->size_y + (4 - (data->map->size_y % 4) + 1);
 	if (check_rectangular(data->map->map)
-		&& (new_size_x != data->map->size_x || new_size_y != data->map->size_y))
-		expand_map(data, new_size_x, new_size_y);
+		&& (newsize[0] != data->map->size_x || newsize[1] != data->map->size_y))
+		expand_map(data, newsize[0], newsize[1]);
 	data->floodfill->map = tabdup(data->map->map);
 	return (data->floodfill->isvalid = floodfill(data, data->player->spawn[1],
 			data->player->spawn[0]));

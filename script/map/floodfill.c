@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 06:02:46 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 21:07:29 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:46:08 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,7 @@ int	floodfill_collect(t_mlx_data *data, int x, int y)
 		return (0);
 	if (data->floodfill->map[y][x] == M_WALL
 		|| data->floodfill->map[y][x] == M_FLOOD
-		|| data->floodfill->map[y][x] == M_DOOR_OBJ_C
-		|| data->floodfill->map[y][x] == M_FINISH)
+		|| data->floodfill->map[y][x] == M_DOOR_OBJ_C)
 		return (0);
 	if (data->floodfill->map[y][x] == M_CH_OBJ_C)
 		data->floodfill->obj++;
@@ -115,14 +114,16 @@ int	floodfill(t_mlx_data *data, int x, int y)
 	sl_logs(data->logs->map, "\n\e[1m~Base map before floodfill"RES);
 	sl_maplogs(data, data->floodfill->map);
 	floodfill_collect(data, x, y);
+	sl_logs(data->logs->map, "\n\e[1m~Map after first floodfill"RES);
+	sl_maplogs(data, data->floodfill->map);
 	if (data->floodfill->obj != data->map->obj)
 	{
 		sl_logs(data->logs->floodfill, YEL"[WARNING]"
 			"First floodfill fail.. Aborting\n"RES);
 		return (0);
 	}
-	sl_logs(data->logs->map, "\n\e[1m~Map after first floodfill"RES);
-	sl_maplogs(data, data->floodfill->map);
+	free(data->floodfill->map);
+	data->floodfill->map = tabdup(data->map->map);
 	if (!floodfill_reach(data, x, y))
 	{
 		sl_logs(data->logs->floodfill, YEL

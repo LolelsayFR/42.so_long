@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 20:26:30 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:42:25 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	mlx_clock(t_mlx_data *data)
 	mlx_render(data);
 	mlx_actions(data, data->player->pos_x, data->player->pos_y);
 	if (!data->map->isvalid || !data->floodfill->isvalid)
-		return (mlx_close(data));
+		return (data->state = -1, mlx_close(data));
 	return (1);
 }
 
@@ -83,7 +83,7 @@ void	mlx_put_exit(t_mlx_data *data)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_X;
 	pos[1] = ((data->map->end_pos[1] - (data->map->player_pos[1] - 1) * 4)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_Y;
-	if (data->map->end_pos[0] % 4 == 1 || data->map->end_pos[1] % 4 == 1)
+	if (data->map->end_pos[0] % 4 == 1 || data->map->end_pos[1] % 4 == 0)
 	{
 		draw_player(data->img->trophy, data, pos[0] + TILE_SIZE, pos[1]);
 		draw_player(data->img->trophy, data, pos[0] - TILE_SIZE, pos[1]);

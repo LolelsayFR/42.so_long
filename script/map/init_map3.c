@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 04:04:10 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 19:01:49 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 23:15:44 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ int	expand_map(t_mlx_data *data, int new_size_x, int new_size_y)
 	data->map->visited_map = new_visited_map;
 	data->map->size_x = new_size_x;
 	data->map->size_y = new_size_y;
+	sl_logs(data->logs->checker, YEL"Map too smol, 5x5 map minimum\n"RES);
 	return (1);
 }

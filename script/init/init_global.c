@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 19:42:46 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 00:01:48 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,6 @@ void	mlx_timer(t_mlx_data *data)
 	free (temp);
 	free(time[0]);
 	free(time[1]);
+	if (data->player->hp < 8 && sec % 20 == 0)
+		data->player->hp++;
 }

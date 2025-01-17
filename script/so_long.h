@@ -6,12 +6,16 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 20:50:13 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 22:19:50 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
+
+# ifndef DEBUG
+#  define DEBUG 0
+# endif
 
 //Include all header
 # include <math.h>
@@ -94,7 +98,6 @@
 
 //Dev settings
 # define PTH			"./sprites/"
-# define DEBUG			0
 # define FPS			60
 # define MINMAP_X		576
 # define MINMAP_Y		142
