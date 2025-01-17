@@ -170,4 +170,4 @@ W...W:..W...W
 WWWWWWWWWWWWW
 ```
 
-#### Lot of example are in maps/test/*.ber
+## Lot of example are in maps/test/*.ber
