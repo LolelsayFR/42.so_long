@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 22:16:45 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 19:23:32 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:17:43 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	map_init(t_mlx_data *data)
 	fd = open(data->map->path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf(RED"[ERROR]\nBad map paths.\n"RES);
+		sl_logs(data->logs->map, RED"Bad map paths.\n"RES);
 		return (RETURN_ERROR);
 	}
 	data->map->temp_map = NULL;
@@ -78,14 +78,11 @@ int	map_paste2(t_mlx_data *data, int x, int y)
 		y++;
 	}
 	data->enemy = ft_calloc(data->map->enemy + 1, sizeof(t_enemy *));
-	return (map_check(data));
+	return (map_check(data, 0, 0));
 }
 
-int	map_check(t_mlx_data *data)
+int	map_check(t_mlx_data *data, int i, int j)
 {
-	int	i;
-	int	j;
-
 	i = 0;
 	while (data->map->map[i] != NULL)
 	{
@@ -97,11 +94,13 @@ int	map_check(t_mlx_data *data)
 		{
 			if (!ft_strchr(MAP_SET, data->map->map[i][j])
 				&& j < data->map->size_x)
-				return (ft_printf(YEL"Char set invalid !\n"RES), 0);
+				sl_logs(data->logs->checker, YEL"Char set invalid !\n"RES,
+					data->map->isvalid = 0);
 			if ((((i == 0 || i == data->map->size_y) && j < data->map->size_x)
 					|| j == 0 || j == data->map->size_x - 1)
 				&& (data->map->map[i][j] != M_WALL))
-				return (ft_printf(YEL"Map not closed by wall..\n"RES), 0);
+				sl_logs(data->logs->checker, YEL"Map not closed by wall..\n"RES,
+					data->map->isvalid = 0);
 			enemy_create(data, data->map->map[i][j], j, i);
 			j++;
 		}
@@ -116,13 +115,13 @@ int	map_check2(t_mlx_data *data)
 	int		new_size_y;
 
 	if (data->map->size_x % 4 != 1 || data->map->size_y % 4 != 1)
-		ft_printf("[WARNING]\nMap too smol, 5x5 map minimum\n");
+		ft_printf(YEL"[WARNING]\nMap too smol, 5x5 map minimum\n"RES);
 	if (data->map->player != 1)
-		return (ft_printf(YEL"Invalid player spawn count.\n"RES), 0);
+		ft_printf(YEL"Bad player spawn count.\n"RES, data->map->isvalid = 0);
 	if (data->map->obj < 1)
-		return (ft_printf(YEL"Invalid colectible count.\n"RES), 0);
+		ft_printf(YEL"Bad colectible count.\n"RES, data->map->isvalid = 0);
 	if (data->map->end != 1)
-		return (ft_printf(YEL"Invalid end count.\n"RES), 0);
+		ft_printf(YEL"Bad end count.\n"RES, data->map->isvalid = 0);
 	if (data->map->size_x % 4 == 1)
 		new_size_x = data->map->size_x;
 	else
@@ -135,6 +134,6 @@ int	map_check2(t_mlx_data *data)
 		&& (new_size_x != data->map->size_x || new_size_y != data->map->size_y))
 		expand_map(data, new_size_x, new_size_y);
 	data->floodfill->map = tabdup(data->map->map);
-	floodfill(data, data->player->spawn[1], data->player->spawn[0]);
-	return (1);
+	return (data->floodfill->isvalid = floodfill(data, data->player->spawn[1],
+			data->player->spawn[0]));
 }

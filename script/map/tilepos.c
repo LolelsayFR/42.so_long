@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 02:17:01 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 04:41:13 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:49:59 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	map_tilepos(t_mlx_data *data, int x, int y, char c)
 {
-	if (c == M_FLOOR || c == M_PLAYER || c == M_ENEMY
+	if (c != M_FLOOR && x % 4 == 1 && y % 4 == 1)
+		map_wallpos(data, x, y);
+	else if (c == M_FLOOR || c == M_PLAYER || c == M_ENEMY
 		|| c == M_FINISH || c == M_SPIKE)
 		map_floorpos(data, x, y);
 	else if (c == M_WALL)

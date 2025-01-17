@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 08:23:53 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 03:29:45 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:12:46 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	map_chestpos2(t_mlx_data *data, int x, int y, int *xy)
 		chest = data->img->tilemap->red_chest[1];
 	if (xy[1] == 1 && xy[0] == 1)
 		mlx_put_tiles(data, chest, x, y);
-	else if ((xy[1] == 1 && x == 11) || (xy[0] == 1 && y == 11))
+	else if ((xy[1] == 1 && x == 1) || (xy[0] == 1 && y == 11))
 		mlx_put_tiles(data, chest, x, y);
 	else if ((xy[0] == 1 && y == 1) || (xy[1] == 1 && x == 11))
 		mlx_put_tiles(data, chest, x, y);

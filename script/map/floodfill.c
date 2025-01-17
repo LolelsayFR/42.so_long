@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 06:02:46 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 19:00:15 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 21:07:29 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,14 @@ char	**tabdup(char **map)
 
 void	maprint(char **tab)
 {
-	int		i;
-	int		j;
-	int		size_y;
+	int			i;
+	int			j;
+	static int	call = 0;
 
+	if (!DEBUG)
+		return ((void)ft_printf("Floodfill step %i\n", call++));
 	i = 0;
-	size_y = 0;
-	while (tab[size_y] != NULL)
-		size_y++;
-	while (i < size_y)
+	while (tab[i] != NULL)
 	{
 		j = 0;
 		while (tab[i][j])
@@ -63,7 +62,8 @@ void	maprint(char **tab)
 
 int	floodfill_collect(t_mlx_data *data, int x, int y)
 {
-	ft_printf("\n\nFirst Flood = x %i y %i \n", x, y);
+	if (DEBUG)
+		ft_printf("\n\nFirst Flood = x %i y %i \n", x, y);
 	maprint(data->floodfill->map);
 	if (x < 0 || x >= data->map->size_x || y < 0 || y >= data->map->size_y)
 		return (0);
@@ -74,6 +74,13 @@ int	floodfill_collect(t_mlx_data *data, int x, int y)
 		return (0);
 	if (data->floodfill->map[y][x] == M_CH_OBJ_C)
 		data->floodfill->obj++;
+	if (x % 4 == 0 && y % 4 == 0
+		&& ft_strchr(MAP_CORN_ERROR, data->floodfill->map[y][x]))
+	{
+		sl_logs(data->logs->floodfill, YEL"[WARNING]"
+			"Map has a corner error... Aborting\n"RES);
+		return (data->floodfill->obj = INT_MIN, 0);
+	}
 	data->floodfill->map[y][x] = M_FLOOD;
 	floodfill_collect(data, x + 1, y);
 	floodfill_collect(data, x - 1, y);
@@ -84,7 +91,8 @@ int	floodfill_collect(t_mlx_data *data, int x, int y)
 
 int	floodfill_reach(t_mlx_data *data, int x, int y)
 {
-	ft_printf("\n\nSecond Flood = x %i y %i \n", x, y);
+	if (DEBUG)
+		ft_printf("\n\nSecond Flood = x %i y %i \n", x, y);
 	maprint(data->floodfill->map);
 	if (x < 0 || x >= data->map->size_x || y < 0 || y >= data->map->size_y)
 		return (0);
@@ -92,30 +100,36 @@ int	floodfill_reach(t_mlx_data *data, int x, int y)
 		|| data->floodfill->map[y][x] == M_FLOOD2)
 		return (0);
 	if (data->floodfill->map[y][x] == M_FINISH)
-		return (data->floodfill->isvalid = 1, 1);
+		return (1);
 	data->floodfill->map[y][x] = M_FLOOD2;
 	if (floodfill_reach(data, x + 1, y)
 		|| floodfill_reach(data, x - 1, y)
 		|| floodfill_reach(data, x, y + 1)
 		|| floodfill_reach(data, x, y - 1))
 		return (1);
-	return (data->floodfill->isvalid = 0, 0);
+	return (0);
 }
 
 int	floodfill(t_mlx_data *data, int x, int y)
 {
+	sl_logs(data->logs->map, "\n\e[1m~Base map before floodfill"RES);
+	sl_maplogs(data, data->floodfill->map);
 	floodfill_collect(data, x, y);
 	if (data->floodfill->obj != data->map->obj)
 	{
-		ft_printf(YEL"[WARNING]\n"
-			"First floodfill cant get all objectives... Aborting\n"RES);
+		sl_logs(data->logs->floodfill, YEL"[WARNING]"
+			"First floodfill fail.. Aborting\n"RES);
 		return (0);
 	}
+	sl_logs(data->logs->map, "\n\e[1m~Map after first floodfill"RES);
+	sl_maplogs(data, data->floodfill->map);
 	if (!floodfill_reach(data, x, y))
 	{
-		ft_printf(YEL
-			"[WARNING]\nSecond floodfill cant reach the end of map...\n"RES);
+		sl_logs(data->logs->floodfill, YEL
+			"[WARNING] Second floodfill cant reach the end of map..."RES);
 		return (0);
 	}
+	sl_logs(data->logs->map, "\n\e[1m~Map after second floodfill"RES);
+	sl_maplogs(data, data->floodfill->map);
 	return (1);
 }

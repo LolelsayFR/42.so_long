@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/15 06:05:50 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/17 19:00:33 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC				=	script/main.c\
 					script/utils/hud.c\
 					script/utils/menu.c\
 					script/utils/minimap.c\
+					script/utils/logs.c\
 					script/map/floodfill.c
 
 GNL_PATH		=	./modules/get_next_line

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 06:35:20 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/15 02:33:03 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:01:03 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	map_print(char **map, t_mlx_data *data)
 	int	j;
 
 	i = 0;
+	draw_image(data->img->mini->player_bg, data, 727, 205);
 	while (map[i] != NULL)
 	{
 		j = 0;

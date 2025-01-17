@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 17:55:11 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:50:13 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@
 # define HITBOX_H		64
 
 //Set the map charset
-# define MAP_SET	"W:~.ED@$&Fde;-"
-# define MAP_COLIDE	"WDE"
-# define MAP_ACTION	":~F"
+# define MAP_SET		"W:~.ED@$&Fde;-"
+# define MAP_COLIDE		"WDE"
+# define MAP_ACTION		":~F"
+# define MAP_CORN_ERROR	":;-~FdeDE&$@"
 # define MAP_OPEN_DOOR	"de"
 # define MAP_CLOSE_DOOR	"DE"
 # define M_WALL			'W'
@@ -147,6 +148,7 @@ typedef struct s_sprites_minimap
 	t_img				*player;
 	t_img				*final;
 	t_img				*floor;
+	t_img				*player_bg;
 }	t_sprites_minimap;
 
 typedef struct s_control
@@ -244,6 +246,14 @@ typedef struct s_sprites
 	t_sprites_minimap	*mini;
 }	t_sprites;
 
+typedef struct s_logs
+{
+	t_list				*map;
+	t_list				*checker;
+	t_list				*floodfill;
+	t_list				*other;
+}	t_logs;
+
 typedef struct s_mlx_data
 {
 	unsigned long long	frames;
@@ -263,6 +273,7 @@ typedef struct s_mlx_data
 	int					state;
 	int					inpopup;
 	t_flood				*floodfill;
+	t_logs				*logs;
 }	t_mlx_data;
 
 /* ************************************************************************** */
@@ -348,6 +359,7 @@ void	enemy_free(t_mlx_data *data);
 void	enemy_colider(t_mlx_data *data);
 void	enemy_render_utils(t_mlx_data *data, int i, t_enemy	**e, int y);
 void	so_scream(t_mlx_data *data);
+void	spike_render(t_enemy **e, t_mlx_data *data, int i);
 
 /* ************************************************************************** */
 /*  Map functions                                                             */
@@ -355,7 +367,7 @@ void	so_scream(t_mlx_data *data);
 //Map Init, free and Check
 void	check_map_path(char *str);
 int		map_init(t_mlx_data *data);
-int		map_check(t_mlx_data *data);
+int		map_check(t_mlx_data *data, int i, int j);
 int		map_check2(t_mlx_data *data);
 int		map_paste(t_mlx_data *data);
 int		map_paste2(t_mlx_data *data, int x, int y);
@@ -407,5 +419,10 @@ int		color_map(t_mlx_data *data, int w, int h);
 void	action_cooldown(t_mlx_data *data);
 void	mlx_timer(t_mlx_data *data);
 int		check_rectangular(char **tab);
+void	sl_logs(t_list *logs, char *str, ...);
+void	sl_logs_init(t_mlx_data *data);
+void	sl_logs_free(t_mlx_data *data);
+void	sl_logs_print(t_list *lst);
+void	sl_maplogs(t_mlx_data *data, char **tab);
 
 #endif

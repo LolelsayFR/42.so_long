@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 21:03:00 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:26:30 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	mlx_clock(t_mlx_data *data)
 	mlx_render(data);
 	mlx_actions(data, data->player->pos_x, data->player->pos_y);
 	if (!data->map->isvalid || !data->floodfill->isvalid)
-		return (ft_printf(RED"[MAP ERROR]\nRead above.\n"RES), mlx_close(data));
+		return (mlx_close(data));
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:19:51 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 02:17:44 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:38:40 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,23 @@ void	enemy_colider(t_mlx_data *data)
 		}
 		i++;
 	}
+}
+
+void	spike_render(t_enemy **e, t_mlx_data *data, int i)
+{
+	if (e[i]->type == M_SPIKE
+		&& (e[i]->spawn[0] % 4 == 0 || !e[i]->spawn[1] % 4 == 0))
+	{
+		draw_player(data->img->spike, data, e[i]->pos[0]
+			+ TILE_SIZE - 11, e[i]->pos[1] - 14);
+		draw_player(data->img->spike, data, e[i]->pos[0]
+			- TILE_SIZE - 11, e[i]->pos[1] - 14);
+		draw_player(data->img->spike, data, e[i]->pos[0]
+			- 11, e[i]->pos[1] - 14 + TILE_SIZE);
+		draw_player(data->img->spike, data, e[i]->pos[0]
+			- 11, e[i]->pos[1] - 14 - TILE_SIZE);
+	}
+	else if (e[i]->type == M_SPIKE)
+		draw_player(data->img->spike, data, e[i]->pos[0]
+			- 11, e[i]->pos[1] - 14);
 }

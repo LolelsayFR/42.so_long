@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 04:30:28 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 20:33:36 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:42:46 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	data_init(t_mlx_data *data, char *map_path)
 {
+	sl_logs_init(data);
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		exit(-1);
@@ -43,7 +44,8 @@ void	data_init2(t_mlx_data *data)
 	player_init(data);
 	data->room->r_pos[0] = -1;
 	data->room->r_pos[1] = -1;
-	data->map->isvalid = map_init(data);
+	data->map->isvalid = 1;
+	map_init(data);
 	data->timer = ft_calloc(1, sizeof(char));
 	mlx_timer(data);
 	data->frames = 0;

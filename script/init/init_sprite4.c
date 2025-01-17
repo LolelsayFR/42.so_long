@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 18:44:09 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/10 08:11:19 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:56:22 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	sprites_init_minimap(t_mlx_data *data)
 			PTH"mmap/chest_c.xpm", &w, &h);
 	data->img->mini->door_o = mlx_xpm_file_to_image(data->mlx_ptr,
 			PTH"mmap/door_o.xpm", &w, &h);
+	data->img->mini->player_bg = mlx_xpm_file_to_image(data->mlx_ptr,
+			PTH"mmap/player_bg.xpm", &w, &h);
 	return (sprites_init_minimap2(data));
 }
 
@@ -73,5 +75,6 @@ void	sprite_clear_minimap(t_mlx_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->img->mini->enemy);
 	mlx_destroy_image(data->mlx_ptr, data->img->mini->wall);
 	mlx_destroy_image(data->mlx_ptr, data->img->mini->player);
+	mlx_destroy_image(data->mlx_ptr, data->img->mini->player_bg);
 	free(data->img->mini);
 }
