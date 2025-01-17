@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:36:08 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/16 18:20:59 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/17 21:21:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mlx_put_background(t_mlx_data *data)
 		data->img->bg = mlx_xpm_file_to_image(data->mlx_ptr, BG, &w, &h);
 	}
 	if (!data->img->bg)
-		ft_printf("Can't access background data");
+		sl_logs(data->logs->other, RED"[ERROR] Can't access background"RES);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->bg, 0, 0);
 }
 
@@ -36,7 +36,7 @@ void	mlx_put_tiles(t_mlx_data *data, t_img *tile, int x, int y)
 	if (!((x > 0 && x <= 11) && (y > 0 && y <= 11)))
 		return ;
 	if (!tile)
-		ft_printf("Can't access tile data");
+		sl_logs(data->logs->other, RED"[ERROR] Can't access tile data"RES);
 	rx = (x * TILE_SIZE) + VIEW_X - TILE_SIZE;
 	ry = (y * TILE_SIZE) + VIEW_Y - TILE_SIZE;
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, tile, rx, ry);
@@ -55,7 +55,7 @@ void	mlx_put_hud_bg(t_mlx_data *data)
 				HUD_BG, &w, &h);
 	}
 	if (!data->img->hud_bg)
-		ft_printf("Can't access player data");
+		sl_logs(data->logs->other, RED"[ERROR] Can't acces player data"RES);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img->hud_bg, HUD_X, HUD_Y);
 }
