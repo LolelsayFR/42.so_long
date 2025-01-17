@@ -7,7 +7,12 @@
 ## Features
 
 - 2D top-down view
-- Player movement in four directions (W, A, S, D keys)
+- Smooth player movement in four directions (W, A, S, D keys)
+- Heal (H)
+- Sprint (Shift)
+- Pause Menu (Esc)
+- Minimap and hud
+- Player animations and actions
 - Collectible items
 - Enemies that chase the player
 - Exit door that opens when all items are collected
