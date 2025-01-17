@@ -7,7 +7,12 @@
 ## Features
 
 - 2D top-down view
-- Player movement in four directions (W, A, S, D keys)
+- Smooth player movement in four directions (W, A, S, D keys)
+- Heal (H)
+- Sprint (Shift)
+- Real Pause Menu (Esc)
+- Minimap and hud
+- Player animations and actions
 - Collectible items
 - Enemies that chase the player
 - Exit door that opens when all items are collected
@@ -54,7 +59,7 @@ To run the game, use the following command:
 - **A**: Move left
 - **S**: Move down
 - **D**: Move right
-- **ESC**: Quit the game
+- **ESC**: Pause menu
 - **Space**: Primary action
 - **H**: Heal
 
@@ -93,7 +98,7 @@ W.@.D...W...W
 W...W..:W...W
 WWWWWWDWWWDWW
 W:..W...W...W
-W...D...E.D.W
+W...D...E.F.W
 W...W:..W...W
 WWWWWWWWWWWWW
 ```
@@ -108,7 +113,7 @@ W.@.D...W...W
 W...W..:W...W
 WWWWWWDWWWDWW
 W:..W...W...W
-W...D...E.D.W
+W...D...E.F.W
 W...W:..W...W
 WWWWWWWWWWWW
 ```
@@ -121,10 +126,9 @@ W.@.D...W...W
 W...W..:W...W
 WWWWWWDWWWDWW
 W:..W...W...W
-W...D...E.D.W
+W...D...E.F.W
 W...W:..W...W
-WWWWWWWWWWWWW
-W
+W.WWWWWWWWWWW
 ```
 
 #### Example 3: Invalid Characters
@@ -133,10 +137,37 @@ WWWWWWWWWWWWW
 W-..W.:.W...W
 W.@.D...W...W
 W...W..:W...W
-WWWWWWDWWWDWW
+WWWWWPTDRWDWW
 W:..W...W...W
-W...D...E.D.W
+W...D...E.F.W
 W...W:..W...W
 WWWWWWWWWWWWW
-WZ
 ```
+
+#### Example 4: Bad Spawn count AND Finish point
+```
+WWWWWWWWWWWWW
+W-..W.:.W...W
+W.@.D...W...W
+W...W.@:W...W
+WWWWWWWWWWDWW
+W:..W...W.F.W
+W...D...E.F.W
+W...W:..W...W
+WWWWWWWWWWWWW
+```
+
+#### Example 5: No path
+```
+WWWWWWWWWWWWW
+W-..W.:.W...W
+W.@.W...W...W
+W...W.@:W...W
+WWWWWWWWWWDWW
+W:..W...W.F.W
+W...D...E.F.W
+W...W:..W...W
+WWWWWWWWWWWWW
+```
+
+## Lot of example are in maps/test/*.ber
