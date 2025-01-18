@@ -6,7 +6,7 @@
 #    By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 23:30:22 by emaillet          #+#    #+#              #
-#    Updated: 2025/01/17 23:59:44 by emaillet         ###   ########.fr        #
+#    Updated: 2025/01/18 16:13:45 by emaillet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,6 @@ STORY_MAP		=	maps/story/1.ber\
 					maps/story/5.ber\
 					maps/story/6.ber\
 					maps/story/7.ber\
-					maps/story/8.ber\
-					maps/story/9.ber\
-					maps/story/10.ber
 
 SRC				=	script/main.c\
 					script/player/player.c\
@@ -75,13 +72,13 @@ hello:
 
 info: hello
 	@echo "\n\e[48;2;70;70;70;1m SoLong usage : \e[0m\n"
-	@echo "./so_long <map path> \n make story\n"
+	@echo "./so_long <map path> \n    or\nmake story\n"
 
 lib: hello $(LIBFT) $(FTPRINTF) $(MINILIBX)
 
 $(NAME): ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
 	@echo "\e[48;2;0;155;0;1m Compile Solong \e[0m\n"
-	cc ${SRC} ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
+	cc ${SRC} -D DEBUG=0 -D BUFFER_SIZE=1000000 ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
 	@echo "\e[48;2;0;0;155;1m Done \e[0m\n"
 
 $(LIBFT):
@@ -115,7 +112,7 @@ fclean:	hello clean
 re:	hello fclean all
 
 debug: hello ${LIBFT} ${FTPRINTF} ${MINILIBX} ${GNL} ${SRC}
-	cc ${SRC} -D DEBUG=1 ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
+	cc ${SRC} -D DEBUG=1 -D BUFFER_SIZE=1000000 ${MINILIBX} ${GNL} ${LIBFT} ${FTPRINTF} ${CFLAGS} -o $(NAME)
 
 story:  ${STORY_MAP} $(NAME)
 	@echo "\e[48;2;100;0;100;1m Good luck !! \e[0m\n"

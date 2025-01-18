@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 20:19:51 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 18:55:05 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:26:49 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	enemy_render(t_mlx_data *data)
 				* (3 * TILE_SIZE)) - (TILE_SIZE / 2) + VIEW_X + e[i]->move[0];
 		e[i]->pos[1] = ((e[i]->spawn[1] - (data->map->player_pos[1] - 1) * 4)
 				* (3 * TILE_SIZE)) - (TILE_SIZE / 2) + VIEW_Y + e[i]->move[1];
-		enemy_render_utils(data, i, e, y);
 		spike_render(e, data, i);
+		enemy_render_utils(data, i, e, y);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:15:26 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/18 00:03:18 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:08:28 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	player_set_amim(t_mlx_data *data, t_img **set)
 
 void	player_mapmove(t_mlx_data *data)
 {
-	if (data->player->pos_y > VIEW_H + VIEW_Y - (HITBOX_H + 25))
+	if (data->player->pos_y > VIEW_H + VIEW_Y - HITBOX_H + 25)
 	{
 		if (data->map->player_pos[1] <= data->map->size_y / 4)
 		{
@@ -94,7 +94,7 @@ void	player_mapmove(t_mlx_data *data)
 	{
 		if (data->map->player_pos[1] > 1)
 		{
-			data->player->pos_y = VIEW_H + VIEW_Y - (HITBOX_H + 25);
+			data->player->pos_y = VIEW_H + VIEW_Y - HITBOX_H + 25;
 			data->map->player_pos[1]--;
 		}
 		else

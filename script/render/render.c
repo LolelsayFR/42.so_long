@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 04:02:43 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 23:42:25 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 14:27:09 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	mlx_put_exit(t_mlx_data *data)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_X;
 	pos[1] = ((data->map->end_pos[1] - (data->map->player_pos[1] - 1) * 4)
 			* (3 * TILE_SIZE)) - TILE_SIZE + VIEW_Y;
-	if (data->map->end_pos[0] % 4 == 1 || data->map->end_pos[1] % 4 == 0)
+	if (data->map->end_pos[0] % 4 == 0 || data->map->end_pos[1] % 4 == 0)
 	{
 		draw_player(data->img->trophy, data, pos[0] + TILE_SIZE, pos[1]);
 		draw_player(data->img->trophy, data, pos[0] - TILE_SIZE, pos[1]);

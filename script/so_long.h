@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:55:31 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 22:19:50 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:32:26 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@
 # define M_FINISH		'F'
 # define M_NOT_VISITED	'*'
 # define M_FLOOD		'+'
-# define M_FLOOD2		'#'
+# define M_FLOOD2		'x'
 
 //Dev settings
 # define PTH			"./sprites/"
@@ -343,7 +343,7 @@ void	player_mapmove(t_mlx_data *data);
 void	player_mapmove2(t_mlx_data *data);
 void	player_set_amim(t_mlx_data *data, t_img **set);
 int		player_hitbox(t_mlx_data *data, int x, int y);
-int		player_hitbox_door(t_mlx_data *data, int x, int y, int *xy);
+int		player_hitbox_door(t_mlx_data *data, int x, int y);
 int		player_colider(t_mlx_data *data, int x, int y);
 int		player_coordinate(int coor);
 int		door_check(int x, int y);

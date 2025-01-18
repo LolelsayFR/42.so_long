@@ -6,7 +6,7 @@
 /*   By: emaillet <emaillet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 06:02:46 by emaillet          #+#    #+#             */
-/*   Updated: 2025/01/17 23:46:08 by emaillet         ###   ########.fr       */
+/*   Updated: 2025/01/18 15:01:01 by emaillet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ int	floodfill_collect(t_mlx_data *data, int x, int y)
 	if (x % 4 == 0 && y % 4 == 0
 		&& ft_strchr(MAP_CORN_ERROR, data->floodfill->map[y][x]))
 	{
-		sl_logs(data->logs->floodfill, YEL"[WARNING]"
-			"Map has a corner error... Aborting\n"RES);
+		sl_logs(data->logs->floodfill, YEL
+			"Map has a corner error... Aborting"RES, x, y);
 		return (data->floodfill->obj = INT_MIN, 0);
 	}
 	data->floodfill->map[y][x] = M_FLOOD;
@@ -98,6 +98,12 @@ int	floodfill_reach(t_mlx_data *data, int x, int y)
 	if (data->floodfill->map[y][x] == M_WALL
 		|| data->floodfill->map[y][x] == M_FLOOD2)
 		return (0);
+	if ((x % 4 == 0 || y % 4 == 0) && data->floodfill->map[y][x] == M_PLAYER)
+	{
+		sl_logs(data->logs->floodfill, YEL
+			"Player Spawn in wall... Aborting"RES);
+		return (0);
+	}
 	if (data->floodfill->map[y][x] == M_FINISH)
 		return (1);
 	data->floodfill->map[y][x] = M_FLOOD2;
@@ -111,6 +117,8 @@ int	floodfill_reach(t_mlx_data *data, int x, int y)
 
 int	floodfill(t_mlx_data *data, int x, int y)
 {
+	static int	i = 0;
+
 	sl_logs(data->logs->map, "\n\e[1m~Base map before floodfill"RES);
 	sl_maplogs(data, data->floodfill->map);
 	floodfill_collect(data, x, y);
@@ -118,19 +126,20 @@ int	floodfill(t_mlx_data *data, int x, int y)
 	sl_maplogs(data, data->floodfill->map);
 	if (data->floodfill->obj != data->map->obj)
 	{
-		sl_logs(data->logs->floodfill, YEL"[WARNING]"
-			"First floodfill fail.. Aborting\n"RES);
+		sl_logs(data->logs->floodfill, YEL
+			"First floodfill fail.. Aborting"RES);
 		return (0);
 	}
+	while (data->floodfill->map[i])
+		free(data->floodfill->map[i++]);
 	free(data->floodfill->map);
 	data->floodfill->map = tabdup(data->map->map);
 	if (!floodfill_reach(data, x, y))
 	{
 		sl_logs(data->logs->floodfill, YEL
-			"[WARNING] Second floodfill cant reach the end of map..."RES);
+			"Second floodfill cant reach the end of map..."RES);
 		return (0);
 	}
 	sl_logs(data->logs->map, "\n\e[1m~Map after second floodfill"RES);
-	sl_maplogs(data, data->floodfill->map);
-	return (1);
+	return (sl_maplogs(data, data->floodfill->map), 1);
 }
