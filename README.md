@@ -6,7 +6,7 @@
 
 ## Gameplay
 ![Screenshot from 2025-01-18 20-58-47](https://github.com/user-attachments/assets/7ce8a1fc-80ab-483d-8b7c-58f2e291c730)
-![Watch the video]([https://youtu.be/nTQUwghvy5Q](https://youtu.be/sNjrSM4QN-A))
+[Watch the video](https://youtu.be/sNjrSM4QN-A)
 ## Features
 
 - 2D top-down view
@@ -137,3 +137,6 @@ W.WWWWWWWWWWW
 
 
 #### Lot of other examples in maps/test/*.ber
+
+
+![Screenshot from 2025-01-18 21-12-30](https://github.com/user-attachments/assets/20713017-f811-4abc-8048-f410000eee7f)
