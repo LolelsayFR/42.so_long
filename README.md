@@ -4,12 +4,16 @@
 
 **So Long** is a 2D game where the player controls a character that must navigate through a map, collect items, and reach the exit. The game is built using the MiniLibX library and follows specific map creation rules to ensure a valid and playable game environment. This project is realized within the framework of the 42 common core and it implies the 42 norm and other details.
 
+## Gameplay
+![Screenshot from 2025-01-18 20-58-47](https://github.com/user-attachments/assets/7ce8a1fc-80ab-483d-8b7c-58f2e291c730)
+![Watch the video]([https://youtu.be/nTQUwghvy5Q](https://youtu.be/sNjrSM4QN-A))
 ## Features
 
 - 2D top-down view
 - Smooth player movement in four directions (W, A, S, D keys)
 - Heal (H)
 - Sprint (Shift)
+
 - Real Pause Menu (Esc)
 - Minimap and hud
 - Player animations and actions
@@ -131,43 +135,5 @@ W...W:..W...W
 W.WWWWWWWWWWW
 ```
 
-#### Example 3: Invalid Characters
-```
-WWWWWWWWWWWWW
-W-..W.:.W...W
-W.@.D...W...W
-W...W..:W...W
-WWWWWPTDRWDWW
-W:..W...W...W
-W...D...E.F.W
-W...W:..W...W
-WWWWWWWWWWWWW
-```
 
-#### Example 4: Bad Spawn count AND Finish point
-```
-WWWWWWWWWWWWW
-W-..W.:.W...W
-W.@.D...W...W
-W...W.@:W...W
-WWWWWWWWWWDWW
-W:..W...W.F.W
-W...D...E.F.W
-W...W:..W...W
-WWWWWWWWWWWWW
-```
-
-#### Example 5: No path
-```
-WWWWWWWWWWWWW
-W-..W.:.W...W
-W.@.W...W...W
-W...W.@:W...W
-WWWWWWWWWWDWW
-W:..W...W.F.W
-W...D...E.F.W
-W...W:..W...W
-WWWWWWWWWWWWW
-```
-
-## Lot of example are in maps/test/*.ber
+#### Lot of other examples in maps/test/*.ber
